@@ -1,7 +1,7 @@
 import { type AppType } from "next/app";
 import { EffectorNext } from "@effector/next";
 
-import { api } from "~/utils/api";
+import { api } from "~/shared/api";
 
 import "~/styles/globals.css";
 

@@ -1,5 +1,5 @@
-import { createTRPCRouter } from "~/server/api/trpc";
-import { widgetRouter } from "~/shared/api/routers/widget";
+import { createTRPCRouter } from "./trpc";
+import { widgetRouter } from "./routers/widget";
 
 export const appRouter = createTRPCRouter({
   widget: widgetRouter,

@@ -2,9 +2,9 @@ import { createEffect, createEvent, createStore, forward } from "effector";
 import { type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 
-import { apiClient } from "~/utils/api";
+import { apiClient } from "~/shared/api";
 
-export type WidgetFetchResult =
+type WidgetFetchResult =
   | {
       id: string;
       mdxSource: MDXRemoteSerializeResult;
@@ -16,11 +16,11 @@ export type WidgetFetchResult =
       error: string;
     };
 
-export const $widgets = createStore<WidgetFetchResult[]>([]);
+const $widgets = createStore<WidgetFetchResult[]>([]);
 
-export const getWidgets = createEvent();
+const getWidgets = createEvent();
 
-export const getWidgetsFx = createEffect(async () => {
+const getWidgetsFx = createEffect(async () => {
   const widgets = await apiClient.widget.getAllWidgets.query();
 
   return await Promise.all(widgets.map((raw) => serializeRawWidget(raw)));
@@ -43,4 +43,9 @@ const serializeRawWidget = async (raw: { id: string; source: string }) => {
       error: (e as Error).message,
     };
   }
+};
+
+export const model = {
+  $widgets,
+  getWidgets,
 };

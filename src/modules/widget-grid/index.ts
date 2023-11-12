@@ -1,2 +1,2 @@
 export { WidgetGrid } from "./ui";
-export { $widgets, getWidgets, getWidgetsFx } from "./model";
+export { model as widgetModel } from "./model";

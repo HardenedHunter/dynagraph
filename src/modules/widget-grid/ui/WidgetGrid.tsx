@@ -4,10 +4,10 @@ import { MDXRemote } from "next-mdx-remote";
 
 import { Widget, ErrorWidget } from "~/entities/widget";
 import { WidgetContext } from "./WidgetContext";
-import { $widgets } from "../model";
+import { model } from "../model";
 
 export const WidgetGrid: FCC = ({ className }) => {
-  const widgets = useUnit($widgets);
+  const widgets = useUnit(model.$widgets);
 
   return (
     <section className={clsx(className, "flex flex-wrap gap-6")}>
