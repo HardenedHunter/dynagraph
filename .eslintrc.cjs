@@ -18,7 +18,7 @@ const config = {
     "@typescript-eslint/consistent-type-definitions": "off",
 
     "@typescript-eslint/consistent-type-imports": [
-      "warn",
+      "off",
       {
         prefer: "type-imports",
         fixStyle: "inline-type-imports",
