@@ -1,12 +1,23 @@
+// See https://github.com/FortAwesome/Font-Awesome/issues/19348
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment
+const { library, config } = require("@fortawesome/fontawesome-svg-core");
+
 import Head from "next/head";
 import { type AppType } from "next/app";
 import { EffectorNext } from "@effector/next";
 
 import { api } from "~/shared/api";
+import { icons } from "~/shared/misc";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "~/styles/globals.css";
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+config.autoAddCss = false;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+library.add(...Object.values(icons));
 
 const MyApp: AppType<{ values: Record<string, unknown> }> = ({
   Component,

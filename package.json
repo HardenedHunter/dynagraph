@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "@effector/next": "^0.6.1",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.18",
     "@prisma/client": "^5.1.1",
     "@t3-oss/env-nextjs": "^0.7.0",
     "@tanstack/react-query": "^4.32.6",
@@ -20,6 +24,7 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "effector": "^22.8.7",
     "effector-react": "^22.5.4",
