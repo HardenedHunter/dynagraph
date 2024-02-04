@@ -5,3 +5,33 @@
 body {
   @apply bg-neutral-900 text-gray-50;
 }
+
+.react-grid-item.react-grid-placeholder {
+  @apply bg-violet-400 rounded-xl;
+}
+
+.react-draggable-transparent-selection { 
+  user-select: none; 
+}
+
+.react-grid-item > .react-resizable-handle {
+  visibility: hidden;
+  background-image: none;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  bottom: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-right: 3px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.react-grid-item:hover > .react-resizable-handle {
+  visibility: visible;
+}
+
+.react-grid-item {
+  transition-duration: 0ms;
+}

@@ -1,2 +1,2 @@
-export { Widget } from "./Widget";
-export { ErrorWidget } from "./ErrorWidget";
+export { Widget, type WidgetProps } from "./Widget";
+export { WidgetLoadingError } from "./WidgetLoadingError";

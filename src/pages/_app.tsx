@@ -4,6 +4,8 @@ import { EffectorNext } from "@effector/next";
 
 import { api } from "~/shared/api";
 
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 import "~/styles/globals.css";
 
 const MyApp: AppType<{ values: Record<string, unknown> }> = ({

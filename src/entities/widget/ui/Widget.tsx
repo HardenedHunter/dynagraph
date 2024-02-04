@@ -7,12 +7,13 @@ export const Widget = forwardRef<
   HTMLDivElement,
   PropsWithClassName<WidgetProps>
 >(({ className, ...props }, ref) => {
-  // const { id } = useWidgetContext();
-
   return (
     <div
       ref={ref}
-      className={clsx(className, "rounded-xl bg-neutral-800 p-6")}
+      className={clsx(
+        className,
+        "overflow-hidden rounded-xl bg-neutral-800 p-6",
+      )}
       {...props}
     />
   );
