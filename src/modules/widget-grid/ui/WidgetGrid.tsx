@@ -8,6 +8,10 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 import { WidgetLoadingError } from "~/entities/widget";
 import { model } from "../model";
 import { WidgetInGrid } from "./WidgetInGrid";
+import { ErrorBoundary } from "react-error-boundary";
+import { Suspense } from "react";
+import React from "react";
+import { Icon } from "~/shared/ui";
 
 export const WidgetGrid: FCC = ({ className }) => {
   const widgets = useUnit(model.$widgets);
@@ -31,7 +35,21 @@ export const WidgetGrid: FCC = ({ className }) => {
           }}
         >
           {mdxSource ? (
-            <MDXRemote {...mdxSource} components={{}} />
+            <ErrorBoundary
+              fallbackRender={({ error }) => (
+                <WidgetLoadingError error={(error as Error).message} />
+              )}
+            >
+              <Suspense
+                fallback={
+                  <div className="flex h-full w-full items-center justify-center">
+                    <Icon icon="spinner" className="animate-spin" />
+                  </div>
+                }
+              >
+                <MDXRemote {...mdxSource} components={{}} />
+              </Suspense>
+            </ErrorBoundary>
           ) : (
             <WidgetLoadingError key={index} error={error} />
           )}
