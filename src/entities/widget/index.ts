@@ -1,1 +1,1 @@
-export { Widget, type WidgetProps, WidgetLoadingError } from "./ui";
+export { WidgetLoadingError } from "./ui";

@@ -7,11 +7,10 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 import { WidgetLoadingError } from "~/entities/widget";
 import { model } from "../model";
-import { WidgetInGrid } from "./WidgetInGrid";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import React from "react";
-import { Icon } from "~/shared/ui";
+import { Icon, Panel } from "~/shared/ui";
 
 export const WidgetGrid: FCC = ({ className }) => {
   const widgets = useUnit(model.$widgets);
@@ -25,7 +24,7 @@ export const WidgetGrid: FCC = ({ className }) => {
       rowHeight={72}
     >
       {widgets.map(({ id, mdxSource, error }, index) => (
-        <WidgetInGrid
+        <Panel
           key={id}
           data-grid={{
             x: (index % 2) * 6,
@@ -53,7 +52,7 @@ export const WidgetGrid: FCC = ({ className }) => {
           ) : (
             <WidgetLoadingError key={index} error={error} />
           )}
-        </WidgetInGrid>
+        </Panel>
       ))}
     </ResponsiveGridLayout>
   );
