@@ -24,8 +24,8 @@ const button = cva(
         error: "bg-red-400 text-neutral-800 hover:bg-red-500",
       },
       size: {
-        md: "text-xs px-8 py-2 rounded-xl font-semibold",
-        lg: "text-sm px-8 py-3 rounded-xl font-semibold",
+        md: "text-xs px-8 py-2 rounded font-semibold",
+        lg: "text-sm px-8 py-3 rounded font-semibold",
       },
     },
   },

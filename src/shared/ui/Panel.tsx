@@ -8,7 +8,10 @@ export const Panel = forwardRef<HTMLDivElement, PropsWithClassName<PanelProps>>(
     return (
       <div
         ref={ref}
-        className={clsx(className, "rounded-xl bg-neutral-800 p-6")}
+        className={clsx(
+          className,
+          "rounded border-[1px] border-neutral-300 bg-neutral-50 p-6",
+        )}
         {...props}
       />
     );

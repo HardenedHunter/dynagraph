@@ -1,14 +1,9 @@
 import { allSettled, fork, serialize } from "effector";
 
-import { MainLayout } from "~/shared/ui";
 import { WidgetGrid, widgetModel } from "~/modules/widget-grid";
 
 const Home = () => {
-  return (
-    <MainLayout>
-      <WidgetGrid />
-    </MainLayout>
-  );
+  return <WidgetGrid />;
 };
 
 export const getServerSideProps = async () => {

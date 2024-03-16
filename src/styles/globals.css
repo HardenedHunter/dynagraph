@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-  @apply bg-neutral-900 text-gray-50;
+  @apply bg-neutral-200 text-neutral-600;
 }
 
 .react-grid-item.react-grid-placeholder {
-  @apply bg-violet-400 rounded-xl;
+  @apply bg-violet-400;
 }
 
 .react-draggable-transparent-selection { 
@@ -24,8 +24,9 @@ body {
   right: 6px;
   width: 7px;
   height: 7px;
-  border-right: 3px solid rgba(255, 255, 255, 0.4);
-  border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+  border-right: 3px solid;
+  border-bottom: 3px solid;
+  @apply border-neutral-400;
 }
 
 .react-grid-item:hover > .react-resizable-handle {
