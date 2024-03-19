@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  transition: color 300ms ease, background-color 300ms ease;
+}
+
 body {
   @apply bg-neutral-200 text-neutral-600;
 }

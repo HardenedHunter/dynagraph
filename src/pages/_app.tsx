@@ -6,6 +6,7 @@ import Head from "next/head";
 import { type AppType } from "next/app";
 import { EffectorNext } from "@effector/next";
 
+import { Modals } from "~/app/ui";
 import { api } from "~/shared/api";
 import { icons } from "~/shared/misc";
 import { MainLayout } from "~/shared/ui";
@@ -33,6 +34,7 @@ const MyApp: AppType<{ values: Record<string, unknown> }> = ({
       </Head>
       <MainLayout>
         <Component {...pageProps} />
+        <Modals />
       </MainLayout>
     </EffectorNext>
   );

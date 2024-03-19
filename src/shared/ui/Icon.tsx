@@ -12,7 +12,5 @@ export type IconProps = FontAwesomeIconProps & {
 };
 
 export const Icon: FCC<IconProps> = ({ className, ...props }) => {
-  return (
-    <FontAwesomeIcon className={clsx(className, "text-gray-400")} {...props} />
-  );
+  return <FontAwesomeIcon className={className} {...props} />;
 };

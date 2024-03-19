@@ -66,8 +66,12 @@ export const Button: ButtonComponent = forwardRef<
 
 const IconButton = forwardRef<
   HTMLButtonElement,
-  PropsWithClassName<ButtonProps & { iconProps: IconProps }>
->(({ className, iconProps, ...props }, ref) => {
+  PropsWithClassName<
+    ButtonProps & { iconProps?: Omit<IconProps, "icon"> } & {
+      icon: IconProps["icon"];
+    }
+  >
+>(({ className, iconProps, icon, ...props }, ref) => {
   return (
     <button
       {...props}
@@ -75,7 +79,7 @@ const IconButton = forwardRef<
       ref={ref}
       className={clsx(className, "outline-none")}
     >
-      <Icon {...iconProps} />
+      <Icon icon={icon} {...iconProps} />
     </button>
   );
 });
