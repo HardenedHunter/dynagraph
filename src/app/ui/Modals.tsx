@@ -16,7 +16,6 @@ export const Modals: FC = () => {
 
   useEffect(closeAll, [asPath, closeAll]);
 
-  console.log(modals);
   if (!hasOpenModals) return null;
 
   return (

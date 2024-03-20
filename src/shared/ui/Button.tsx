@@ -12,14 +12,14 @@ type ButtonVariant = "primary" | "secondary" | "error" | "warning";
 type ButtonSize = "md" | "lg";
 
 const button = cva(
-  "whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+  "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 text-neutral-50",
   {
     variants: {
       variant: {
         primary:
-          "bg-violet-600 hover:bg-violet-500 focus-visible:ring-violet-600 focus-visible:ring-offset-gray-50",
+          "bg-violet-600 hover:bg-violet-500 focus:ring-violet-600 focus:ring-offset-neutral-50",
         secondary:
-          "bg-gray-50 hover:bg-gray-300 text-neutral-800 focus-visible:ring-offset-violet-600 focus-visible:ring-gray-50",
+          "bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-600 focus-visible:ring-neutral-50",
         warning: "bg-amber-400 hover:bg-amber-300 text-neutral-800",
         error: "bg-red-400 text-neutral-800 hover:bg-red-500",
       },
@@ -34,6 +34,7 @@ const button = cva(
 type ButtonProps = React.ComponentProps<"button"> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
+  block?: boolean;
 };
 
 type ButtonComponent = ForwardRefExoticComponent<
@@ -50,7 +51,14 @@ export const Button: ButtonComponent = forwardRef<
   PropsWithClassName<ButtonProps>
 >(
   (
-    { className, size = "md", variant = "primary", type = "button", ...props },
+    {
+      className,
+      block,
+      size = "md",
+      variant = "primary",
+      type = "button",
+      ...props
+    },
     ref,
   ) => {
     return (
@@ -58,7 +66,11 @@ export const Button: ButtonComponent = forwardRef<
         {...props}
         type={type}
         ref={ref}
-        className={clsx(className, button({ variant, size }))}
+        className={clsx(
+          className,
+          block && "w-full",
+          button({ variant, size }),
+        )}
       />
     );
   },
@@ -77,9 +89,12 @@ const IconButton = forwardRef<
       {...props}
       type="button"
       ref={ref}
-      className={clsx(className, "outline-none")}
+      className={clsx(
+        className,
+        "h-6 w-6 rounded outline-none focus:ring-2 focus:ring-violet-600",
+      )}
     >
-      <Icon icon={icon} {...iconProps} />
+      <Icon icon={icon} size="lg" {...iconProps} />
     </button>
   );
 });

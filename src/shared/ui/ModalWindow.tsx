@@ -1,17 +1,20 @@
 import { useState, Fragment, ReactNode } from "react";
 import { Transition, Dialog } from "@headlessui/react";
+import clsx from "clsx";
 
 import { Button } from "~/shared/ui";
 import { useUnit } from "effector-react";
 import { modalsModel } from "~/shared/model";
 
 type ModalWindowProps = {
+  className?: string;
   modalName: string;
   title: string;
   children: ReactNode;
 };
 
 export const ModalWindow: FCC<ModalWindowProps> = ({
+  className,
   modalName,
   title,
   children,
@@ -62,7 +65,7 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
                   <Button.Icon icon="close" onClick={handleClose} />
                 </div>
 
-                <div className="mt-6">{children}</div>
+                <div className={clsx(className, "mt-6")}>{children}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
