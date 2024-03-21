@@ -76,6 +76,14 @@ export const createModalActions = <
         event({ name, Component: PropslessComponent });
       }
     },
-    close: () => modalsModel.close(name),
+    close: () => {
+      const scope = getClientScope();
+
+      if (scope) {
+        const event = scopeBind(modalsModel.close, { scope });
+
+        event(name);
+      }
+    },
   } as unknown as CreateModalActionsReturn<T>;
 };
