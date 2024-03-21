@@ -1,4 +1,4 @@
-import { useState, Fragment, ReactNode } from "react";
+import { useState, Fragment, ReactNode, MutableRefObject } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import clsx from "clsx";
 
@@ -11,6 +11,7 @@ type ModalWindowProps = {
   modalName: string;
   title: string;
   children: ReactNode;
+  initialFocus?: MutableRefObject<HTMLElement | null>;
 };
 
 export const ModalWindow: FCC<ModalWindowProps> = ({
@@ -18,6 +19,7 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
   modalName,
   title,
   children,
+  initialFocus,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -29,7 +31,12 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
 
   return (
     <Transition appear show={isOpen} as={Fragment} afterLeave={handleRemove}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog
+        initialFocus={initialFocus}
+        as="div"
+        className="relative z-10"
+        onClose={handleClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-200"
@@ -62,7 +69,11 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
                     {title}
                   </Dialog.Title>
 
-                  <Button.Icon icon="close" onClick={handleClose} />
+                  <Button.Icon
+                    tabIndex={-1}
+                    icon="close"
+                    onClick={handleClose}
+                  />
                 </div>
 
                 <div className={clsx(className, "mt-6")}>{children}</div>

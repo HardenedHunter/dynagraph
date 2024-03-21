@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import {
   FontAwesomeIcon,
   type FontAwesomeIconProps,
@@ -7,7 +6,7 @@ import type { IconPrefix } from "@fortawesome/fontawesome-svg-core";
 
 import type { DynagraphIcon } from "~/shared/misc/icons";
 
-export type IconProps = FontAwesomeIconProps & {
+export type IconProps = Omit<FontAwesomeIconProps, "icon"> & {
   icon: DynagraphIcon | [IconPrefix, DynagraphIcon];
 };
 
