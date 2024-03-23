@@ -6,11 +6,11 @@ import { CreateWidgetPanel } from "~/features/createWidget";
 import { model } from "../model";
 
 export const WidgetLibrary: FC = () => {
-  const widgets = useUnit(model.$widgets);
+  const [widgets, getWidgets] = useUnit([model.$widgets, model.getWidgets]);
 
   return (
     <div className="mx-auto grid max-w-[90rem] gap-6 lg:grid-cols-4">
-      <CreateWidgetPanel />
+      <CreateWidgetPanel onCreate={getWidgets} />
       {widgets.map((w) => (
         <Panel key={w.id}>
           <p className="text-sm font-bold">{w.name}</p>

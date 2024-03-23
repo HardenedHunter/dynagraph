@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Widget } from "@prisma/client";
 
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
@@ -9,7 +10,11 @@ import { CreateWidgetData, createWidgetSchema } from "~/shared/schemas";
 
 const name = "CreateWidgetModal";
 
-const Component: FC = () => {
+type CreateWidgetModalProps = {
+  onCreate?: (widget: Widget) => void;
+};
+
+const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
   const {
     register,
     handleSubmit,
@@ -19,7 +24,10 @@ const Component: FC = () => {
   });
 
   const mutation = api.widget.createWidget.useMutation({
-    onSuccess: () => createWidgetModal.close(),
+    onSuccess: (widget) => {
+      createWidgetModal.close();
+      onCreate?.(widget);
+    },
   });
 
   const onSubmit = (data: CreateWidgetData) => {
@@ -49,4 +57,7 @@ const Component: FC = () => {
   );
 };
 
-export const createWidgetModal = createModalActions({ name, Component });
+export const createWidgetModal = createModalActions({
+  name,
+  Component: CreateWidgetModal,
+});
