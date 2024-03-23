@@ -1,2 +1,2 @@
-export { WidgetLibrary } from "./ui/WidgetLibrary";
+export { WidgetLibrary } from "./WidgetLibrary";
 export { model as widgetLibraryModel } from "./model";

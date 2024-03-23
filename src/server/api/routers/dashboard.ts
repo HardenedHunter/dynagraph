@@ -9,8 +9,6 @@ const defaultDashboardSelect = Prisma.validator<Prisma.DashboardSelect>()({
   name: true,
   icon: true,
   color: true,
-  createdAt: true,
-  updatedAt: true,
 });
 
 export const dashboardRouter = createTRPCRouter({

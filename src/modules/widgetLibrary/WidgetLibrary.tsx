@@ -3,7 +3,7 @@ import { FC } from "react";
 
 import { Icon, Panel } from "~/shared/ui";
 import { CreateWidgetPanel } from "~/features/createWidget";
-import { model } from "../model";
+import { model } from "./model";
 
 export const WidgetLibrary: FC = () => {
   const [widgets, getWidgets] = useUnit([model.$widgets, model.getWidgets]);
