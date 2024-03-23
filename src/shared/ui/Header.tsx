@@ -30,13 +30,13 @@ export const Header: FCC = ({ className }) => (
   <header
     className={clsx(
       className,
-      "flex h-16 items-center justify-center border-b-[1px] border-neutral-300 bg-slate-50 px-6",
+      "flex h-16 items-center justify-center border-b-[1px] border-neutral-300 bg-neutral-50 px-6",
     )}
   >
     <section className="flex max-w-[90rem] grow items-center gap-8">
       <Link href="/">
         <h1 className="text-xl font-bold md:text-3xl">
-          Dyna<span className="text-violet-600">graph</span>
+          Dyna<span className="text-violet-500">graph</span>
         </h1>
       </Link>
       <nav>

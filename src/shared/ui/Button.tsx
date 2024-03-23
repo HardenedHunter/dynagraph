@@ -17,9 +17,9 @@ const button = cva(
     variants: {
       variant: {
         primary:
-          "bg-violet-600 hover:bg-violet-500 focus:ring-violet-600 focus:ring-offset-neutral-50",
+          "bg-violet-500 hover:bg-violet-500 focus:ring-violet-500 focus:ring-offset-neutral-50",
         secondary:
-          "bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-600 focus-visible:ring-neutral-50",
+          "bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-500 focus-visible:ring-neutral-50",
         warning: "bg-amber-400 hover:bg-amber-300 text-neutral-800",
         error: "bg-red-400 text-neutral-800 hover:bg-red-500",
       },
@@ -67,9 +67,9 @@ export const Button: ButtonComponent = forwardRef<
         type={type}
         ref={ref}
         className={clsx(
-          className,
           block && "w-full",
           button({ variant, size }),
+          className,
         )}
       />
     );
@@ -91,7 +91,7 @@ const IconButton = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        "h-6 w-6 rounded outline-none focus:ring-2 focus:ring-violet-600",
+        "h-6 w-6 rounded outline-none focus:ring-2 focus:ring-violet-500",
       )}
     >
       <Icon icon={icon} size="lg" {...iconProps} />

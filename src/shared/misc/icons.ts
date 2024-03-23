@@ -1,11 +1,6 @@
-import {
-  faChartColumn,
-  faClose,
-  faSpinner,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import * as iconImports from "./iconImports";
 
-export const icons = { faClose, faSpinner, faChartColumn, faPlus };
+export const icons = iconImports;
 
 type CamelToKebabCase<S extends string> = S extends `${infer T}${infer U}`
   ? `${T extends Capitalize<T> ? "-" : ""}${Lowercase<T>}${CamelToKebabCase<U>}`
