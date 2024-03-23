@@ -1,0 +1,1 @@
+export { DashboardCover } from "./DashboardCover";

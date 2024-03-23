@@ -6,6 +6,7 @@ import { Dashboard } from "@prisma/client";
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { Button, Input, ModalWindow } from "~/shared/ui";
+import { DashboardCover } from "~/entities/dashboardCover";
 import { CreateDashboardData, createDashboardSchema } from "~/shared/schemas";
 import { DashboardCoverPicker } from "./DashboardCoverPicker";
 
@@ -28,15 +29,16 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
   });
 
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
   } = form;
 
   const mutation = api.dashboard.createDashboard.useMutation({
-    onSuccess: (widget) => {
+    onSuccess: (dashboard) => {
       createDashboardModal.close();
-      onCreate?.(widget);
+      onCreate?.(dashboard);
     },
   });
 
@@ -44,16 +46,26 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
     mutation.mutate(data);
   };
 
+  const color = watch("color");
+  const icon = watch("icon");
+
   return (
     <ModalWindow modalName={name} title="Create new dashboard">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...form}>
-          <Input
-            block
-            label="Name"
-            error={errors.name?.message}
-            {...register("name")}
-          />
+          <section className="flex gap-6">
+            <DashboardCover
+              className="mt-6"
+              backgroundColor={color}
+              icon={icon}
+            />
+            <Input
+              block
+              label="Name"
+              error={errors.name?.message}
+              {...register("name")}
+            />
+          </section>
           <DashboardCoverPicker />
           <Button
             className="mt-4"
