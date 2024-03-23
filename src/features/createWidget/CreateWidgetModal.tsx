@@ -8,6 +8,11 @@ import { createModalActions } from "~/shared/misc";
 import { Button, Input, ModalWindow, TextArea } from "~/shared/ui";
 import { CreateWidgetData, createWidgetSchema } from "~/shared/schemas";
 
+const defaultValues: CreateWidgetData = {
+  name: "",
+  source: "",
+};
+
 const name = "CreateWidgetModal";
 
 type CreateWidgetModalProps = {
@@ -20,6 +25,7 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<CreateWidgetData>({
+    defaultValues,
     resolver: zodResolver(createWidgetSchema),
   });
 
