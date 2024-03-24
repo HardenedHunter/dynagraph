@@ -1,8 +1,6 @@
 import { allSettled, fork, serialize } from "effector";
 
-import { WidgetLibrary, widgetLibraryModel } from "~/modules/widgetLibrary";
-
-const Library = () => <WidgetLibrary />;
+import { WidgetLibrary, widgetLibraryModel } from "~/pages/widgetLibrary";
 
 export const getServerSideProps = async () => {
   const scope = fork();
@@ -12,4 +10,4 @@ export const getServerSideProps = async () => {
   return { props: { values: serialize(scope) } };
 };
 
-export default Library;
+export default WidgetLibrary;
