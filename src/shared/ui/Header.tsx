@@ -10,7 +10,7 @@ type NavLinkProps = PropsWithChildren<{
 const NavLink: FC<NavLinkProps> = ({ children, href }) => {
   const { asPath } = useRouter();
 
-  const isActive = asPath === href;
+  const isActive = asPath.startsWith(href);
 
   return (
     <Link href={href}>
