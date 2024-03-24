@@ -1,21 +1,21 @@
 import { allSettled, fork, serialize } from "effector";
 
 import { CustomNextPage } from "~/shared/misc";
-import {
-  DashboardsDrawer,
-  dashboardsDrawerModel,
-} from "~/modules/dashboardsDrawer";
+import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
+import { Button } from "~/shared/ui";
+import { DashboardsLayout } from "~/layouts/dashboardsLayout";
 
 const Dashboards: CustomNextPage = () => {
   return (
-    <div className="flex h-full">
-      <DashboardsDrawer />
-      <div className="p-6">456</div>
+    <div className="p-4">
+      <Button variant="primary">123</Button>
     </div>
   );
 };
 
 Dashboards.layoutClassName = "";
+
+Dashboards.getLayout = (page) => <DashboardsLayout>{page}</DashboardsLayout>;
 
 export const getServerSideProps = async () => {
   const scope = fork();

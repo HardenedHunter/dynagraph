@@ -12,16 +12,18 @@ type ButtonVariant = "primary" | "secondary" | "error" | "warning";
 type ButtonSize = "md" | "lg";
 
 const button = cva(
-  "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 text-neutral-50",
+  "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 text-neutral-50 border-[1px]",
   {
     variants: {
       variant: {
         primary:
-          "bg-violet-500 hover:bg-violet-500 focus:ring-violet-500 focus:ring-offset-neutral-50",
+          "border-transparent bg-violet-500 hover:bg-violet-500 focus:ring-violet-500 focus:ring-offset-neutral-50",
         secondary:
-          "bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-500 focus-visible:ring-neutral-50",
-        warning: "bg-amber-400 hover:bg-amber-300 text-neutral-800",
-        error: "bg-red-400 text-neutral-800 hover:bg-red-500",
+          "border-neutral-400 bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-500 focus-visible:ring-neutral-50",
+        warning:
+          "border-transparent bg-amber-400 hover:bg-amber-300 text-neutral-800",
+        error:
+          "border-transparent bg-red-400 text-neutral-800 hover:bg-red-500",
       },
       size: {
         md: "text-xs px-8 py-2 rounded font-semibold",

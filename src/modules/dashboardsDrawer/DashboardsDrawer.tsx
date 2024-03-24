@@ -12,7 +12,7 @@ export const DashboardsDrawer: FC = () => {
   ]);
 
   return (
-    <div className="flex flex-col gap-4 bg-neutral-50 p-3">
+    <div className="flex flex-col gap-4 border-r-[1px] border-neutral-300 bg-neutral-50 p-4">
       <CreateDashboardButton onCreate={getDashboards} />
       {dashboards.map((dashboard) => (
         <DashboardCover

@@ -27,6 +27,8 @@ type CustomAppProps = {
 };
 
 const MyApp: FC<CustomAppProps> = ({ Component, pageProps }) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <EffectorNext values={pageProps.values}>
       <Head>
@@ -35,7 +37,7 @@ const MyApp: FC<CustomAppProps> = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainLayout className={Component.layoutClassName ?? "p-6"}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </MainLayout>
       <Modals />
     </EffectorNext>
