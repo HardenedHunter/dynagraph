@@ -8,8 +8,6 @@ const defaultWidgetSelect = Prisma.validator<Prisma.WidgetSelect>()({
   id: true,
   source: true,
   name: true,
-  createdAt: true,
-  updatedAt: true,
 });
 
 export const widgetRouter = createTRPCRouter({
