@@ -1,28 +1,40 @@
 import { allSettled, fork, serialize } from "effector";
+import { GetServerSideProps } from "next";
 
 import { CustomNextPage } from "~/shared/misc";
 import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
-import { Button } from "~/shared/ui";
+import { dashboardWidgetsModel } from "~/modules/dashboardWidgets";
 import { DashboardsLayout } from "~/layouts/dashboardsLayout";
+import { Dashboard, dashboardModel } from "~/pages/dashboard";
 
-const Dashboard: CustomNextPage = () => {
-  return (
-    <div className="p-4">
-      <Button variant="primary">123</Button>
-    </div>
-  );
-};
+const _Dashboard: CustomNextPage = Dashboard;
 
-Dashboard.layoutClassName = "";
+_Dashboard.layoutClassName = "";
 
-Dashboard.getLayout = (page) => <DashboardsLayout>{page}</DashboardsLayout>;
+_Dashboard.getLayout = (page) => <DashboardsLayout>{page}</DashboardsLayout>;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<
+  object,
+  { id: string }
+> = async (ctx) => {
+  const id = ctx.params?.id;
+
+  if (!id) {
+    return { notFound: true };
+  }
+
   const scope = fork();
 
-  await allSettled(dashboardsDrawerModel.getDashboards, { scope });
+  await Promise.all([
+    allSettled(dashboardsDrawerModel.getDashboards, { scope }),
+    allSettled(dashboardModel.getDashboard, { scope, params: id }),
+    allSettled(dashboardWidgetsModel.getDashboardWidgets, {
+      scope,
+      params: id,
+    }),
+  ]);
 
   return { props: { values: serialize(scope) } };
 };
 
-export default Dashboard;
+export default _Dashboard;

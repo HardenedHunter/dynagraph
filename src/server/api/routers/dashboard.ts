@@ -17,6 +17,14 @@ export const dashboardRouter = createTRPCRouter({
       select: defaultDashboardSelect,
     });
   }),
+  getDashboardById: publicProcedure
+    .input(z.string().min(1))
+    .query(({ ctx, input }) => {
+      return ctx.db.dashboard.findFirstOrThrow({
+        select: defaultDashboardSelect,
+        where: { id: input },
+      });
+    }),
   createDashboard: publicProcedure
     .input(createDashboardSchema)
     .mutation(({ ctx, input }) => {
@@ -26,7 +34,7 @@ export const dashboardRouter = createTRPCRouter({
       });
     }),
   deleteDashboard: publicProcedure
-    .input(z.string())
+    .input(z.string().min(1))
     .mutation(({ ctx, input }) => {
       return ctx.db.dashboard.delete({ where: { id: input } });
     }),

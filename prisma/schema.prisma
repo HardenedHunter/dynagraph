@@ -27,8 +27,8 @@ model Dashboard {
 
 model DashboardWidget {
     id          String    @id @default(cuid())
-    widget      Widget    @relation(fields: [widgetId], references: [id])
     widgetId    String
-    dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
     dashboardId String
+    widget      Widget    @relation(fields: [widgetId], references: [id])
+    dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
 }

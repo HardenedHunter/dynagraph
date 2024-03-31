@@ -2,20 +2,14 @@ import { allSettled, fork, serialize } from "effector";
 
 import { CustomNextPage } from "~/shared/misc";
 import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
-import { Button } from "~/shared/ui";
 import { DashboardsLayout } from "~/layouts/dashboardsLayout";
+import { Dashboards } from "~/pages/dashboards";
 
-const Dashboards: CustomNextPage = () => {
-  return (
-    <div className="p-4">
-      <Button variant="primary">123</Button>
-    </div>
-  );
-};
+const _Dashboards: CustomNextPage = Dashboards;
 
-Dashboards.layoutClassName = "";
+_Dashboards.layoutClassName = "";
 
-Dashboards.getLayout = (page) => <DashboardsLayout>{page}</DashboardsLayout>;
+_Dashboards.getLayout = (page) => <DashboardsLayout>{page}</DashboardsLayout>;
 
 export const getServerSideProps = async () => {
   const scope = fork();
@@ -25,4 +19,4 @@ export const getServerSideProps = async () => {
   return { props: { values: serialize(scope) } };
 };
 
-export default Dashboards;
+export default _Dashboards;
