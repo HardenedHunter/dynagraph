@@ -11,14 +11,24 @@ datasource db {
 }
 
 model Widget {
-    id     String @id @default(cuid())
-    name   String
-    source String
+    id               String            @id @default(cuid())
+    name             String
+    source           String
+    dashboardWidgets DashboardWidget[]
 }
 
 model Dashboard {
-    id    String @id @default(cuid())
-    name  String
-    icon  String
-    color String
+    id               String            @id @default(cuid())
+    name             String
+    icon             String
+    color            String
+    dashboardWidgets DashboardWidget[]
+}
+
+model DashboardWidget {
+    id          String    @id @default(cuid())
+    widget      Widget    @relation(fields: [widgetId], references: [id])
+    widgetId    String
+    dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+    dashboardId String
 }
