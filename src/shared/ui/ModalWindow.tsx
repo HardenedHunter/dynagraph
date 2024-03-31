@@ -7,7 +7,6 @@ import { useUnit } from "effector-react";
 import { modalsModel } from "~/shared/model";
 
 type ModalWindowProps = {
-  className?: string;
   modalName: string;
   title: string;
   children: ReactNode;

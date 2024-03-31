@@ -1,9 +1,10 @@
-import { Widget } from "@prisma/client";
 import { createEffect, createEvent, createStore, forward } from "effector";
 
-import { apiClient } from "~/shared/api";
+import { apiClient, RouterOutputs } from "~/shared/api";
 
-const $widgets = createStore<Widget[]>([]);
+type WidgetsStore = RouterOutputs["widget"]["getAllWidgets"];
+
+const $widgets = createStore<WidgetsStore>([]);
 
 const getWidgets = createEvent();
 

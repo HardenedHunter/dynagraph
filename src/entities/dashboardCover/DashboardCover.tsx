@@ -1,16 +1,14 @@
-import { FC } from "react";
 import clsx from "clsx";
 
 import { Icon } from "~/shared/ui";
 
 type DashboardCoverProps = {
-  className?: string;
   /** В виде bg-COLOR-VALUE */
   backgroundColor: string;
   icon: string;
 };
 
-export const DashboardCover: FC<DashboardCoverProps> = ({
+export const DashboardCover: FCC<DashboardCoverProps> = ({
   className,
   backgroundColor,
   icon,

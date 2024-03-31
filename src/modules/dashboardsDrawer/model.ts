@@ -1,17 +1,16 @@
-import { Dashboard } from "@prisma/client";
 import { createEffect, createEvent, createStore, forward } from "effector";
 
-import { apiClient } from "~/shared/api";
+import { apiClient, RouterOutputs } from "~/shared/api";
 
-const $dashboards = createStore<Dashboard[]>([]);
+type DashboardsStore = RouterOutputs["dashboard"]["getAllDashboards"];
+
+const $dashboards = createStore<DashboardsStore>([]);
 
 const getDashboards = createEvent();
 
-const getDashboardsFx = createEffect(async () => {
-  const dashboards = await apiClient.dashboard.getAllDashboards.query();
-  console.log(dashboards);
-  return dashboards;
-});
+const getDashboardsFx = createEffect(
+  apiClient.dashboard.getAllDashboards.query,
+);
 
 forward({ from: getDashboards, to: getDashboardsFx });
 forward({ from: getDashboardsFx.doneData, to: $dashboards });

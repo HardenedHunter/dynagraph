@@ -41,7 +41,7 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
   };
 
   return (
-    <ModalWindow modalName={name} title="Create new widget">
+    <ModalWindow modalName={name} title="Create widget">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Input
           block
