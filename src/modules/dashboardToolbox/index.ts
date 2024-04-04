@@ -1,1 +1,1 @@
-export { DashboardToolbox } from "./DashboardToolbox";
+export { DashboardToolbox } from "./ui";

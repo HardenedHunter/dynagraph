@@ -1,1 +1,1 @@
-export { CreateWidgetPanel } from "./CreateWidgetPanel";
+export { CreateWidgetPanel } from "./ui";

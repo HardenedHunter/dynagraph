@@ -1,1 +1,1 @@
-export { DashboardCover } from "./DashboardCover";
+export { DashboardCover } from "./ui";

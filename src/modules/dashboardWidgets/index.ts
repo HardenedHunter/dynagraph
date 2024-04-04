@@ -1,2 +1,2 @@
-export { DashboardWidgets } from "./DashboardWidgets";
+export { DashboardWidgets } from "./ui";
 export { model as dashboardWidgetsModel } from "./model";

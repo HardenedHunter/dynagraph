@@ -8,7 +8,7 @@ import { MDXRemote } from "next-mdx-remote";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 import { Icon, Panel } from "~/shared/ui";
-import { WidgetLoadingError } from "~/entities/widget";
+import { WidgetLoadingError } from "~/entities/widgetLoadingError";
 import { model } from "./model";
 
 export const DashboardWidgets: FCC = ({ className }) => {

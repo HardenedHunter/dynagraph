@@ -1,1 +1,1 @@
-export { AddWidgetToDashboardButton } from "./AddWidgetToDashboardButton";
+export { AddWidgetToDashboardButton } from "./ui";

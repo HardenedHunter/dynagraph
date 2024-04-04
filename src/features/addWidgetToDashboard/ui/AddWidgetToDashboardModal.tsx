@@ -7,7 +7,7 @@ import { z } from "zod";
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { Button, Icon, ModalWindow, Select } from "~/shared/ui";
-import { model } from "./model";
+import { model } from "../model";
 
 const name = "AddWidgetToDashboardModal";
 
