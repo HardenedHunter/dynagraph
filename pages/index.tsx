@@ -1,17 +1,7 @@
-import { allSettled, fork, serialize } from "effector";
+const Home = () => null;
 
-import { WidgetGrid, widgetModel } from "~/modules/widget-grid";
-
-const Home = () => {
-  return <WidgetGrid />;
-};
-
-export const getServerSideProps = async () => {
-  const scope = fork();
-
-  await allSettled(widgetModel.getWidgets, { scope });
-
-  return { props: { values: serialize(scope) } };
+export const getServerSideProps = () => {
+  return { redirect: { destination: "/dashboards", permanent: true } };
 };
 
 export default Home;
