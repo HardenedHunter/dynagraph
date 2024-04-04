@@ -11,6 +11,7 @@ body {
 }
 
 .react-grid-item.react-grid-placeholder {
+  z-index: -1;
   @apply bg-violet-400;
 }
 

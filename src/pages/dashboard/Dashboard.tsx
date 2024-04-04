@@ -19,7 +19,7 @@ export const Dashboard: FC = () => {
   return (
     <div
       key={dashboard.id}
-      className="flex max-h-[calc(100vh-64px)] flex-col overflow-y-scroll p-4"
+      className="flex h-[calc(100vh-64px)] flex-col overflow-y-scroll p-4"
     >
       <DashboardToolbox dashboard={dashboard} onAddWidget={handleWidgetAdd} />
       <DashboardWidgets className="mt-6" />
