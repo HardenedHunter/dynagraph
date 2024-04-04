@@ -6,9 +6,9 @@ import { Widget } from "@prisma/client";
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { Button, Input, ModalWindow, TextArea } from "~/shared/ui";
-import { CreateWidgetData, createWidgetSchema } from "~/shared/schemas";
+import { CreateWidgetContract, createWidgetSchema } from "~/server/contracts";
 
-const defaultValues: CreateWidgetData = {
+const defaultValues: CreateWidgetContract = {
   name: "",
   source: "",
 };
@@ -24,7 +24,7 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateWidgetData>({
+  } = useForm<CreateWidgetContract>({
     defaultValues,
     resolver: zodResolver(createWidgetSchema),
   });
@@ -36,7 +36,7 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
     },
   });
 
-  const onSubmit = (data: CreateWidgetData) => {
+  const onSubmit = (data: CreateWidgetContract) => {
     mutation.mutate(data);
   };
 

@@ -17,7 +17,7 @@ export const DashboardsDrawer: FC = () => {
   const { asPath } = useRouter();
 
   return (
-    <div className="border-r-[1px] border-neutral-300 bg-neutral-50">
+    <div className="max-h-[calc(100vh-64px)] overflow-y-scroll border-r-[1px] border-neutral-300 bg-neutral-50">
       <div className="p-4">
         <CreateDashboardButton onCreate={getDashboards} />
       </div>

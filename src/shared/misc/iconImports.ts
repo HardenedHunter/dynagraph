@@ -9,4 +9,6 @@ export {
   faClose,
   faSpinner,
   faPlus,
+  faSort,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";

@@ -6,3 +6,4 @@ export { Panel } from "./Panel";
 export { ModalWindow } from "./ModalWindow";
 export { Input } from "./Input";
 export { TextArea } from "./TextArea";
+export { Select } from "./Select";

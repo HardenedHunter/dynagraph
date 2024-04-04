@@ -10,7 +10,7 @@ type InputProps = ComponentProps<"input"> & {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, error, block, label, ...props }, ref) => {
     return (
-      <label className={clsx(block && "w-full")}>
+      <label>
         {label && <p className="mb-1">{label}</p>}
         <input
           ref={ref}

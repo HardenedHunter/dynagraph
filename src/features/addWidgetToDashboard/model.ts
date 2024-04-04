@@ -1,4 +1,5 @@
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { createEffect, createStore, sample } from "effector";
+import { createGate } from "effector-react";
 
 import { apiClient, RouterOutputs } from "~/shared/api";
 
@@ -6,14 +7,16 @@ type WidgetsStore = RouterOutputs["widget"]["getAllWidgets"];
 
 const $widgets = createStore<WidgetsStore>([]);
 
-const getWidgets = createEvent();
-
 const getWidgetsFx = createEffect(apiClient.widget.getAllWidgets.query);
 
-sample({ clock: getWidgets, target: getWidgetsFx });
 sample({ clock: getWidgetsFx.doneData, target: $widgets });
 
+const Gate = createGate();
+
+sample({ clock: Gate.open, target: getWidgetsFx });
+
 export const model = {
+  Gate,
   $widgets,
-  getWidgets,
+  $pending: getWidgetsFx.pending,
 };

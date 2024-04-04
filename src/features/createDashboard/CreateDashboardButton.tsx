@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { Dashboard } from "@prisma/client";
 
 import { Button, Icon } from "~/shared/ui";
 import { createDashboardModal } from "./CreateDashboardModal";
 
 type CreateDashboardButtonProps = {
-  onCreate?: (dashboard: Dashboard) => void;
+  onCreate?: () => void;
 };
 
 export const CreateDashboardButton: FC<CreateDashboardButtonProps> = ({

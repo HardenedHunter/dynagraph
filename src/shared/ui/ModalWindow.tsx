@@ -48,7 +48,7 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
           <Dialog.Overlay className="fixed inset-0 bg-black/25 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
+        <div className="fixed inset-0">
           <div className="flex min-h-full items-center justify-center p-6 text-center">
             <Transition.Child
               as={Fragment}
@@ -59,7 +59,7 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded bg-neutral-50 p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-3xl transform rounded bg-neutral-50 p-6 text-left align-middle shadow-xl transition-all">
                 <div className="flex justify-between gap-4">
                   <Dialog.Title
                     as="h3"

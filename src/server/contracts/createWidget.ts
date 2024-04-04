@@ -13,4 +13,4 @@ export const createWidgetSchema = z.object({
   ),
 });
 
-export type CreateWidgetData = z.infer<typeof createWidgetSchema>;
+export type CreateWidgetContract = z.infer<typeof createWidgetSchema>;

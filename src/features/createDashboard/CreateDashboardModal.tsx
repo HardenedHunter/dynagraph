@@ -1,16 +1,18 @@
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dashboard } from "@prisma/client";
 
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { Button, Input, ModalWindow } from "~/shared/ui";
 import { DashboardCover } from "~/entities/dashboardCover";
-import { CreateDashboardData, createDashboardSchema } from "~/shared/schemas";
+import {
+  CreateDashboardContract,
+  createDashboardSchema,
+} from "~/server/contracts";
 import { DashboardCoverPicker } from "./DashboardCoverPicker";
 
-const defaultValues: CreateDashboardData = {
+const defaultValues: CreateDashboardContract = {
   name: "",
   color: "bg-red-400",
   icon: "chart-column",
@@ -19,11 +21,11 @@ const defaultValues: CreateDashboardData = {
 const name = "CreateDashboardModal";
 
 type CreateDashboardModalProps = {
-  onCreate?: (dashboard: Dashboard) => void;
+  onCreate?: () => void;
 };
 
 const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
-  const form = useForm<CreateDashboardData>({
+  const form = useForm<CreateDashboardContract>({
     defaultValues,
     resolver: zodResolver(createDashboardSchema),
   });
@@ -36,13 +38,13 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
   } = form;
 
   const mutation = api.dashboard.createDashboard.useMutation({
-    onSuccess: (dashboard) => {
+    onSuccess: () => {
       createDashboardModal.close();
-      onCreate?.(dashboard);
+      onCreate?.();
     },
   });
 
-  const onSubmit = (data: CreateDashboardData) => {
+  const onSubmit = (data: CreateDashboardContract) => {
     mutation.mutate(data);
   };
 

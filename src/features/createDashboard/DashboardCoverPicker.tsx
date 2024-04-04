@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useController, useFormContext } from "react-hook-form";
 
 import { Icon } from "~/shared/ui";
-import { CreateDashboardData } from "~/shared/schemas";
+import { CreateDashboardContract } from "~/server/contracts";
 
 export const DashboardCoverPicker: FC = () => {
   return (
@@ -27,7 +27,7 @@ const colors = [
 ] as const;
 
 const ColorPicker: FC = () => {
-  const { control } = useFormContext<CreateDashboardData>();
+  const { control } = useFormContext<CreateDashboardContract>();
   const { field } = useController({ name: "color", control });
 
   return (
@@ -61,7 +61,7 @@ const icons = [
 ] as const;
 
 const IconPicker: FC = () => {
-  const { control } = useFormContext<CreateDashboardData>();
+  const { control } = useFormContext<CreateDashboardContract>();
   const { field } = useController({ name: "icon", control });
 
   return (

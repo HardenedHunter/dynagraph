@@ -19,7 +19,7 @@ const button = cva(
         primary:
           "border-transparent bg-violet-500 hover:bg-violet-500 focus:ring-violet-500 focus:ring-offset-neutral-50",
         secondary:
-          "border-neutral-400 bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-offset-violet-500 focus-visible:ring-neutral-50",
+          "border-neutral-400 bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-neutral-800 focus:ring-offset-neutral-50",
         warning:
           "border-transparent bg-amber-400 hover:bg-amber-300 text-neutral-800",
         error:

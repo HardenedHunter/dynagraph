@@ -8,7 +8,7 @@ type MainLayoutProps = {
 
 export const MainLayout: FCC<MainLayoutProps> = ({ className, children }) => (
   <main className="flex h-screen flex-col">
-    <Header />
+    <Header className="shrink-0" />
     <section className={clsx(className, "basis-full")}>{children}</section>
   </main>
 );

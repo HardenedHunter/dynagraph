@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
-import { createWidgetSchema } from "~/shared/schemas";
+import { createWidgetSchema } from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultWidgetSelect = Prisma.validator<Prisma.WidgetSelect>()({
@@ -21,7 +21,6 @@ export const widgetRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.widget.create({
         data: input,
-        select: defaultWidgetSelect,
       });
     }),
   deleteWidget: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {

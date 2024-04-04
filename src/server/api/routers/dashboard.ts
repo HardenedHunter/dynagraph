@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
-import { createDashboardSchema } from "~/shared/schemas";
+import { createDashboardSchema } from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultDashboardSelect = Prisma.validator<Prisma.DashboardSelect>()({
@@ -30,7 +30,6 @@ export const dashboardRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.dashboard.create({
         data: input,
-        select: defaultDashboardSelect,
       });
     }),
   deleteDashboard: publicProcedure

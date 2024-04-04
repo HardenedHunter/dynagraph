@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<
   await Promise.all([
     allSettled(dashboardsDrawerModel.getDashboards, { scope }),
     allSettled(dashboardModel.getDashboard, { scope, params: id }),
-    allSettled(dashboardWidgetsModel.getDashboardWidgets, {
+    allSettled(dashboardWidgetsModel.getWidgets, {
       scope,
       params: id,
     }),
