@@ -4,7 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 
 import { apiClient } from "~/shared/api";
 
-type WidgetFetchResult =
+export type WidgetFetchResult =
   | {
       id: string;
       mdxSource: MDXRemoteSerializeResult;
