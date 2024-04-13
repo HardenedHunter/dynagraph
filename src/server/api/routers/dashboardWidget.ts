@@ -27,4 +27,11 @@ export const dashboardWidgetRouter = createTRPCRouter({
         data: input,
       });
     }),
+  removeWidgetFromDashboard: publicProcedure
+    .input(z.string().min(1))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.dashboardWidget.delete({
+        where: { id: input },
+      });
+    }),
 });

@@ -7,7 +7,14 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 import { WidgetInDashboard } from "./WidgetInDashboard";
 import { model } from "../model";
 
-export const DashboardWidgets: FCC = ({ className }) => {
+type DashboardWidgetsProps = {
+  onRemoveWidget?: () => void;
+};
+
+export const DashboardWidgets: FCC<DashboardWidgetsProps> = ({
+  className,
+  onRemoveWidget,
+}) => {
   const widgets = useUnit(model.$widgets);
 
   if (!widgets.length) {
@@ -26,12 +33,12 @@ export const DashboardWidgets: FCC = ({ className }) => {
         cols={{ lg: 12 }}
         rowHeight={72}
       >
-        {widgets.map((widgetFetchResult, index) => (
+        {widgets.map((widget, index) => (
           // Из-за внутренней реализации RGL при работе с children
           // лучше обернуть все в div, при прямом прокидывании
           // этих пропсов на сам виджет возникают неразрешимые проблемы
           <div
-            key={widgetFetchResult.id}
+            key={widget.id}
             data-grid={{
               x: (index % 2) * 6,
               y: Math.floor(index / 2) * 6,
@@ -41,7 +48,8 @@ export const DashboardWidgets: FCC = ({ className }) => {
           >
             <WidgetInDashboard
               className="h-full"
-              fetchResult={widgetFetchResult}
+              widget={widget}
+              onRemove={onRemoveWidget}
             />
           </div>
         ))}

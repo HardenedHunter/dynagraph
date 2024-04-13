@@ -4,28 +4,40 @@ import { serialize } from "next-mdx-remote/serialize";
 
 import { apiClient } from "~/shared/api";
 
-export type WidgetFetchResult =
+type SerializedWidget =
   | {
-      id: string;
       mdxSource: MDXRemoteSerializeResult;
       error: undefined;
     }
   | {
-      id: string;
       mdxSource: undefined;
       error: string;
     };
 
-const $widgets = createStore<WidgetFetchResult[]>([]);
+export type DashboardWidget = {
+  id: string;
+  widgetId: string;
+  dashboardId: string;
+  serialized: SerializedWidget;
+};
+
+const $widgets = createStore<DashboardWidget[]>([]);
 
 const getWidgets = createEvent<string>();
 
 const getWidgetsFx = createEffect(async (dashboardId: string) => {
-  const widgets =
+  const dashboardWidgets =
     await apiClient.dashboardWidget.getWidgetsByDashboardId.query(dashboardId);
 
   return await Promise.all(
-    widgets.map((raw) => serializeRawWidget(raw.widget)),
+    dashboardWidgets.map(async ({ id, dashboardId, widget }) => {
+      return {
+        id,
+        dashboardId,
+        widgetId: widget.id,
+        serialized: await serializeRawWidget(widget),
+      };
+    }),
   );
 });
 

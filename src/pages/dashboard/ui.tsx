@@ -12,7 +12,11 @@ export const Dashboard: FC = () => {
 
   if (!dashboard) return null;
 
-  const handleWidgetAdd = () => {
+  const handleWidgetAddition = () => {
+    void router.replace(router.asPath);
+  };
+
+  const handleWidgetRemoval = () => {
     void router.replace(router.asPath);
   };
 
@@ -21,8 +25,11 @@ export const Dashboard: FC = () => {
       key={dashboard.id}
       className="flex h-[calc(100vh-64px)] flex-col overflow-y-scroll p-4"
     >
-      <DashboardToolbox dashboard={dashboard} onAddWidget={handleWidgetAdd} />
-      <DashboardWidgets className="mt-6" />
+      <DashboardToolbox
+        dashboard={dashboard}
+        onAddWidget={handleWidgetAddition}
+      />
+      <DashboardWidgets className="mt-6" onRemoveWidget={handleWidgetRemoval} />
     </div>
   );
 };

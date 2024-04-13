@@ -1,23 +1,47 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { MDXRemote } from "next-mdx-remote";
+import clsx from "clsx";
 
-import { Icon, Panel, PanelProps } from "~/shared/ui";
+import { Icon, Menu, Panel, PanelProps } from "~/shared/ui";
 import { WidgetLoadingError } from "~/entities/widgetLoadingError";
-import { WidgetFetchResult } from "../model";
+import { removeWidgetFromDashboardModal } from "~/features/removeWidgetFromDashboard";
+import { DashboardWidget } from "../model";
 
 type WidgetInDashboardProps = PanelProps & {
-  fetchResult: WidgetFetchResult;
+  widget: DashboardWidget;
+  onRemove?: () => void;
 };
 
 export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
-  fetchResult,
+  widget,
+  onRemove,
   ...rest
 }) => {
-  const { mdxSource, error } = fetchResult;
+  const {
+    id,
+    serialized: { mdxSource, error },
+  } = widget;
+
+  const handleRemove = () => {
+    removeWidgetFromDashboardModal.push({ dashboardWidgetId: id, onRemove });
+  };
+
+  const menuOptions = [
+    {
+      name: "Remove",
+      icon: "trash",
+      onClick: handleRemove,
+    } as const,
+  ];
 
   return (
-    <Panel {...rest} ref={null}>
+    <Panel {...rest} className={clsx("relative", rest.className)} ref={null}>
+      <Menu className="absolute right-0 top-0" options={menuOptions}>
+        <div className="p-3 pb-0">
+          <Icon icon="ellipsis-vertical" />
+        </div>
+      </Menu>
       {mdxSource ? (
         <ErrorBoundary
           fallbackRender={({ error }) => (

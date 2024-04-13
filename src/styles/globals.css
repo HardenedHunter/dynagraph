@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 * {
-  transition: color 300ms ease, background-color 300ms ease;
+  @apply transition-colors;
+  @apply duration-300;
 }
 
 body {
