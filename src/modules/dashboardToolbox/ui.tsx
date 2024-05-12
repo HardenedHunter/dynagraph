@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Dashboard } from "@prisma/client";
 
-import { AddWidgetToDashboardButton } from "~/features/addWidgetToDashboard";
+import { Button } from "~/shared/ui";
+import { addWidgetToDashboardModal } from "~/features/addWidgetToDashboard";
 
 type DashboardToolboxProps = {
   dashboard: Dashboard;
@@ -12,12 +13,16 @@ export const DashboardToolbox: FC<DashboardToolboxProps> = ({
   dashboard,
   onAddWidget,
 }) => {
+  const handleAdd = () => {
+    addWidgetToDashboardModal.push({
+      dashboardId: dashboard.id,
+      onAdd: onAddWidget,
+    });
+  };
+
   return (
     <section>
-      <AddWidgetToDashboardButton
-        dashboardId={dashboard.id}
-        onAdd={onAddWidget}
-      />
+      <Button onClick={handleAdd}>Add widget</Button>
     </section>
   );
 };
