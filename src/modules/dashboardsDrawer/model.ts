@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, forward } from "effector";
+import { createEffect, createEvent, createStore, sample } from "effector";
 
 import { apiClient, RouterOutputs } from "~/shared/api";
 
@@ -12,8 +12,8 @@ const getDashboardsFx = createEffect(
   apiClient.dashboard.getAllDashboards.query,
 );
 
-forward({ from: getDashboards, to: getDashboardsFx });
-forward({ from: getDashboardsFx.doneData, to: $dashboards });
+sample({ clock: getDashboards, target: getDashboardsFx });
+sample({ clock: getDashboardsFx.doneData, target: $dashboards });
 
 export const model = {
   $dashboards,
