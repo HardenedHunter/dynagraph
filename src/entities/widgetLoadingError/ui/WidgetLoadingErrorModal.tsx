@@ -13,7 +13,7 @@ export const WidgetLoadingErrorModal: FC<WidgetLoadingErrorModalProps> = ({
   error,
 }) => {
   return (
-    <ModalWindow modalName={name} title="Failed to load widget">
+    <ModalWindow title="Failed to load widget">
       <pre>
         <p className="text-sm text-red-500">{error}</p>
       </pre>

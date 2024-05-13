@@ -54,7 +54,7 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
   };
 
   return (
-    <ModalWindow modalName={name} title="Add widget to dashboard">
+    <ModalWindow title="Add widget to dashboard">
       {isLoading && (
         <div className="flex h-48 items-center justify-center">
           <Icon icon="spinner" className="animate-spin" />
@@ -92,6 +92,15 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
           </Button>
         </form>
       )}
+      <Button
+        onClick={async () => {
+          console.log("closing");
+          await addWidgetToDashboardModal.close();
+          console.log("closed");
+        }}
+      >
+        123
+      </Button>
     </ModalWindow>
   );
 };

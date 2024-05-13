@@ -1,1 +1,1 @@
-export { model as modalsModel } from "./modals";
+export { model as modalModel } from "./modal";

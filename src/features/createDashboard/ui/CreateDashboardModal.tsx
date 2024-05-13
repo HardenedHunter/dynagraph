@@ -52,7 +52,7 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
   const icon = watch("icon");
 
   return (
-    <ModalWindow modalName={name} title="Create new dashboard">
+    <ModalWindow title="Create new dashboard">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...form}>
           <section className="flex gap-6">

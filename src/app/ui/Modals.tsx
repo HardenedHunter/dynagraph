@@ -2,34 +2,18 @@ import { useUnit } from "effector-react";
 import { FC, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { modalsModel } from "~/shared/model";
+import { modalModel } from "~/shared/model";
 
 export const Modals: FC = () => {
-  const [modals, closeAll] = useUnit([
-    modalsModel.$modals,
-    modalsModel.closeAll,
-  ]);
-
-  const hasOpenModals = modals.length > 0;
+  const [modal, close] = useUnit([modalModel.$modal, modalModel.close]);
 
   const { asPath } = useRouter();
 
-  useEffect(closeAll, [asPath, closeAll]);
+  useEffect(close, [asPath, close]);
 
-  if (!hasOpenModals) return null;
+  if (!modal) return null;
 
-  return (
-    <>
-      {modals.map((modalData, i) => {
-        const { name, Component } = modalData;
-        const isLast = i === modals.length - 1;
+  const { Component } = modal;
 
-        return (
-          <div key={i} style={!isLast ? { opacity: 0 } : undefined}>
-            <Component key={name} />
-          </div>
-        );
-      })}
-    </>
-  );
+  return <Component />;
 };

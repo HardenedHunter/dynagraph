@@ -26,7 +26,7 @@ const RemoveWidgetFromDashboardModal: FC<
   };
 
   return (
-    <ModalWindow modalName={name} title="Remove this widget?">
+    <ModalWindow title="Remove this widget?">
       Are you sure you want to remove this widget?
       <section className="mt-6 flex gap-4">
         <Button block size="lg" onClick={handleRemove}>

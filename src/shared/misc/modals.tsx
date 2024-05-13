@@ -2,7 +2,7 @@ import { getClientScope } from "@effector/next";
 import { scopeBind } from "effector";
 import { FC } from "react";
 
-import { modalsModel } from "~/shared/model";
+import { modalModel } from "~/shared/model";
 
 type RequiredKeys<T> = {
   [K in keyof T]-?: Record<string, never> extends Pick<T, K> ? never : K;
@@ -10,7 +10,7 @@ type RequiredKeys<T> = {
 
 type BaseActions = {
   name: string;
-  close: () => void;
+  close: () => Promise<void>;
 };
 
 // Умная типизация функции xxxModal.push
@@ -71,18 +71,20 @@ export const createModalActions = <
       const scope = getClientScope();
 
       if (scope) {
-        const event = scopeBind(modalsModel.push, { scope });
+        const event = scopeBind(modalModel.push, { scope });
 
-        event({ name, Component: PropslessComponent });
+        event({ name, Component: PropslessComponent, isClosing: false });
       }
     },
-    close: () => {
+    close: async () => {
       const scope = getClientScope();
 
       if (scope) {
-        const event = scopeBind(modalsModel.close, { scope });
+        await new Promise<void>((resolve) => {
+          const event = scopeBind(modalModel.close, { scope });
 
-        event(name);
+          event(resolve);
+        });
       }
     },
   } as unknown as CreateModalActionsReturn<T>;

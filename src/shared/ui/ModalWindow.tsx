@@ -1,13 +1,12 @@
-import { useState, Fragment, ReactNode, MutableRefObject } from "react";
+import { Fragment, ReactNode, MutableRefObject } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import clsx from "clsx";
 
 import { Button } from "~/shared/ui";
 import { useUnit } from "effector-react";
-import { modalsModel } from "~/shared/model";
+import { modalModel } from "~/shared/model";
 
 type ModalWindowProps = {
-  modalName: string;
   title: string;
   children: ReactNode;
   initialFocus?: MutableRefObject<HTMLElement | null>;
@@ -15,21 +14,27 @@ type ModalWindowProps = {
 
 export const ModalWindow: FCC<ModalWindowProps> = ({
   className,
-  modalName,
   title,
   children,
   initialFocus,
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [modal, close, remove] = useUnit([
+    modalModel.$modal,
+    modalModel.close,
+    modalModel.remove,
+  ]);
 
-  const close = useUnit(modalsModel.close);
-
-  const handleRemove = () => close(modalName);
-
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => {
+    close();
+  };
 
   return (
-    <Transition appear show={isOpen} as={Fragment} afterLeave={handleRemove}>
+    <Transition
+      appear
+      show={!modal?.isClosing}
+      as={Fragment}
+      afterLeave={remove}
+    >
       <Dialog
         initialFocus={initialFocus}
         as="div"
