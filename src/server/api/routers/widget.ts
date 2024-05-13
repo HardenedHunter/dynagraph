@@ -11,7 +11,7 @@ const defaultWidgetSelect = Prisma.validator<Prisma.WidgetSelect>()({
 });
 
 export const widgetRouter = createTRPCRouter({
-  getAllWidgets: publicProcedure.query(({ ctx }) => {
+  getWidgets: publicProcedure.query(({ ctx }) => {
     return ctx.db.widget.findMany({
       select: defaultWidgetSelect,
     });
