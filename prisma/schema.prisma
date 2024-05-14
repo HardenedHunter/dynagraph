@@ -18,17 +18,29 @@ model Widget {
 }
 
 model Dashboard {
-    id               String            @id @default(cuid())
-    name             String
-    icon             String
-    color            String
-    dashboardWidgets DashboardWidget[]
+    id                   String                @id @default(cuid())
+    name                 String
+    icon                 String
+    color                String
+    dashboardWidgets     DashboardWidget[]
+    dashboardDatasources DashboardDatasource[]
 }
 
 model DashboardWidget {
-    id          String    @id @default(cuid())
-    widgetId    String
-    dashboardId String
-    widget      Widget    @relation(fields: [widgetId], references: [id])
-    dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+    id           String               @id @default(cuid())
+    widgetId     String
+    dashboardId  String
+    datasourceId String?
+    widget       Widget               @relation(fields: [widgetId], references: [id])
+    dashboard    Dashboard            @relation(fields: [dashboardId], references: [id])
+    datasource   DashboardDatasource? @relation(fields: [datasourceId], references: [id])
+}
+
+model DashboardDatasource {
+    id              String            @id @default(cuid())
+    dashboardId     String
+    name            String
+    url             String
+    dashboard       Dashboard         @relation(fields: [dashboardId], references: [id])
+    dashboardWidget DashboardWidget[]
 }
