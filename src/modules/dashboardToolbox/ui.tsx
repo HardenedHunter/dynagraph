@@ -3,6 +3,7 @@ import { Dashboard } from "@prisma/client";
 
 import { Button } from "~/shared/ui";
 import { addWidgetToDashboardModal } from "~/features/addWidgetToDashboard";
+import { dashboardDatasourcesModal } from "~/features/dashboardDatasources";
 
 type DashboardToolboxProps = {
   dashboard: Dashboard;
@@ -13,16 +14,23 @@ export const DashboardToolbox: FC<DashboardToolboxProps> = ({
   dashboard,
   onAddWidget,
 }) => {
-  const handleAdd = () => {
+  const handleAddWidget = () => {
     addWidgetToDashboardModal.push({
       dashboardId: dashboard.id,
       onAdd: onAddWidget,
     });
   };
 
+  const handleOpenDatasources = () => {
+    dashboardDatasourcesModal.push({ dashboardId: dashboard.id });
+  };
+
   return (
-    <section>
-      <Button onClick={handleAdd}>Add widget</Button>
+    <section className="flex gap-2">
+      <Button onClick={handleAddWidget}>Add widget</Button>
+      <Button variant="secondary" onClick={handleOpenDatasources}>
+        Datasources
+      </Button>
     </section>
   );
 };

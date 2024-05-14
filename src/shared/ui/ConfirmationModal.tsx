@@ -11,7 +11,7 @@ type ConfirmationModalProps = {
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void | Promise<void>;
-  onCancel?: () => Promise<void>;
+  onCancel?: () => void | Promise<void>;
 };
 
 const ConfirmationModal: FC<ConfirmationModalProps> = ({
@@ -20,6 +20,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   confirmText = "Yes",
   cancelText = "No",
   onConfirm,
+  onCancel,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,6 +30,11 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
     await onConfirm();
 
     setIsLoading(false);
+  };
+
+  const handleCancel = async () => {
+    await confirmationModal.close();
+    onCancel?.();
   };
 
   return (
@@ -42,7 +48,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
           block
           size="lg"
           variant="secondary"
-          onClick={confirmationModal.close}
+          onClick={handleCancel}
           disabled={isLoading}
         >
           {cancelText}

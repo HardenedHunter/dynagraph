@@ -7,3 +7,7 @@ export {
   createDashboardWidgetSchema,
   type CreateDashboardWidgetContract,
 } from "./createDashboardWidget";
+export {
+  createDashboardDatasourceSchema,
+  type CreateDashboardDatasourceContract,
+} from "./createDashboardDatasource";
