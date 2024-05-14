@@ -3,9 +3,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { MDXRemote } from "next-mdx-remote";
 import clsx from "clsx";
 
-import { Icon, Menu, Panel, PanelProps } from "~/shared/ui";
+import { api } from "~/shared/api";
+import { confirmationModal, Icon, Menu, Panel, PanelProps } from "~/shared/ui";
 import { WidgetLoadingError } from "~/entities/widgetLoadingError";
-import { removeWidgetFromDashboardModal } from "~/features/removeWidgetFromDashboard";
 import { DashboardWidget } from "../model";
 
 type WidgetInDashboardProps = PanelProps & {
@@ -23,8 +23,21 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
     serialized: { mdxSource, error },
   } = widget;
 
+  const mutation = api.dashboardWidget.removeWidgetFromDashboard.useMutation({
+    onSuccess: () => {
+      confirmationModal.close();
+      onRemove?.();
+    },
+  });
+
   const handleRemove = () => {
-    removeWidgetFromDashboardModal.push({ dashboardWidgetId: id, onRemove });
+    confirmationModal.push({
+      title: "Remove this widget?",
+      description: "Are you sure you want to remove this widget?",
+      onConfirm: async () => {
+        await mutation.mutateAsync(id);
+      },
+    });
   };
 
   const menuOptions = [

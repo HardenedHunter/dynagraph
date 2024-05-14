@@ -1,1 +1,0 @@
-export { removeWidgetFromDashboardModal } from "./ui";
