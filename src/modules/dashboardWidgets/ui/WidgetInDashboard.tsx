@@ -18,10 +18,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   onRemove,
   ...rest
 }) => {
-  const {
-    id,
-    serialized: { mdxSource, error },
-  } = widget;
+  const { id, serialized } = widget;
 
   const mutation = api.dashboardWidget.removeWidgetFromDashboard.useMutation({
     onSuccess: () => {
@@ -55,7 +52,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
           <Icon icon="ellipsis-vertical" />
         </div>
       </Menu>
-      {mdxSource ? (
+      {serialized.mdxSource ? (
         <ErrorBoundary
           fallbackRender={({ error }) => (
             <WidgetLoadingError error={(error as Error).message} />
@@ -68,11 +65,11 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
               </div>
             }
           >
-            <MDXRemote {...mdxSource} components={{}} />
+            <MDXRemote {...serialized.mdxSource} components={{}} />
           </Suspense>
         </ErrorBoundary>
       ) : (
-        <WidgetLoadingError error={error} />
+        <WidgetLoadingError error={serialized.error} />
       )}
     </Panel>
   );

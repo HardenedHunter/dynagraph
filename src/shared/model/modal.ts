@@ -19,7 +19,7 @@ sample({ clock: push, target: $modal });
 sample({
   clock: close,
   source: $modal,
-  filter: (data) => !!data,
+  filter: (data): data is ModalData => !!data,
   fn: (data: ModalData, onClose) => ({
     ...data,
     isClosing: true,
@@ -31,7 +31,7 @@ sample({
 sample({
   clock: remove,
   source: $modal,
-  filter: (data) => !!data,
+  filter: (data): data is ModalData => !!data,
   fn: (data: ModalData) => {
     // TODO Сайд-эффект в чистой функции, не очень хорошо
     if (data.onClose) data.onClose();
