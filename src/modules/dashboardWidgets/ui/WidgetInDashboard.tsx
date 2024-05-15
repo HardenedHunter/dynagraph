@@ -1,11 +1,8 @@
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { MDXRemote } from "next-mdx-remote";
 import clsx from "clsx";
 
 import { api } from "~/shared/api";
 import { confirmationModal, Icon, Menu, Panel, PanelProps } from "~/shared/ui";
-import { WidgetLoadingError } from "~/entities/widgetLoadingError";
+import { WidgetBody } from "./WidgetBody";
 import { DashboardWidget } from "../model";
 
 type WidgetInDashboardProps = PanelProps & {
@@ -18,8 +15,6 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   onRemove,
   ...rest
 }) => {
-  const { id, serialized } = widget;
-
   const mutation = api.dashboardWidget.removeWidgetFromDashboard.useMutation({
     onSuccess: () => {
       confirmationModal.close();
@@ -32,7 +27,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       title: "Remove this widget?",
       description: "Are you sure you want to remove this widget?",
       onConfirm: async () => {
-        await mutation.mutateAsync(id);
+        await mutation.mutateAsync(widget.id);
       },
     });
   };
@@ -52,25 +47,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
           <Icon icon="ellipsis-vertical" />
         </div>
       </Menu>
-      {serialized.mdxSource ? (
-        <ErrorBoundary
-          fallbackRender={({ error }) => (
-            <WidgetLoadingError error={(error as Error).message} />
-          )}
-        >
-          <Suspense
-            fallback={
-              <div className="flex h-full w-full items-center justify-center">
-                <Icon icon="spinner" className="animate-spin" />
-              </div>
-            }
-          >
-            <MDXRemote {...serialized.mdxSource} components={{}} />
-          </Suspense>
-        </ErrorBoundary>
-      ) : (
-        <WidgetLoadingError error={serialized.error} />
-      )}
+      <WidgetBody widget={widget} />
     </Panel>
   );
 };

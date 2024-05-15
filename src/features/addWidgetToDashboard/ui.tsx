@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
-import { Button, Icon, ModalWindow, Select } from "~/shared/ui";
+import { BlockLoader, Button, ModalWindow, Select } from "~/shared/ui";
 import { model } from "./model";
 
 const name = "AddWidgetToDashboardModal";
@@ -17,6 +17,14 @@ const schema = z.object({
     name: z.string(),
     source: z.string(),
   }),
+  datasource: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      dashboardId: z.string(),
+      url: z.string(),
+    })
+    .optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -38,9 +46,13 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
     resolver: zodResolver(schema),
   });
 
-  const [widgets, isLoading] = useUnit([model.$widgets, model.$pending]);
+  const [widgets, datasources, isLoading] = useUnit([
+    model.$widgets,
+    model.$datasources,
+    model.$pending,
+  ]);
 
-  useGate(model.Gate);
+  useGate(model.Gate, dashboardId);
 
   const mutation = api.dashboardWidget.addWidgetToDashboard.useMutation({
     onSuccess: () => {
@@ -50,16 +62,16 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
   });
 
   const onSubmit = (data: FormData) => {
-    mutation.mutate({ widgetId: data.widget.id, dashboardId });
+    mutation.mutate({
+      widgetId: data.widget.id,
+      datasourceId: data.datasource?.id,
+      dashboardId,
+    });
   };
 
   return (
     <ModalWindow title="Add widget to dashboard">
-      {isLoading && (
-        <div className="flex h-48 items-center justify-center">
-          <Icon icon="spinner" className="animate-spin" />
-        </div>
-      )}
+      {isLoading && <BlockLoader />}
       {!isLoading && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
@@ -81,6 +93,26 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
               );
             }}
           />
+          <Controller
+            control={control}
+            name="datasource"
+            render={({ field }) => {
+              return (
+                <Select
+                  block
+                  className="mt-2"
+                  label="Datasource"
+                  error={errors.datasource?.message}
+                  options={datasources}
+                  value={field.value}
+                  onChange={(value) => {
+                    field.onChange(value);
+                    field.onBlur();
+                  }}
+                />
+              );
+            }}
+          />
           <Button
             className="mt-4"
             block
@@ -92,15 +124,6 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
           </Button>
         </form>
       )}
-      <Button
-        onClick={async () => {
-          console.log("closing");
-          await addWidgetToDashboardModal.close();
-          console.log("closed");
-        }}
-      >
-        123
-      </Button>
     </ModalWindow>
   );
 };

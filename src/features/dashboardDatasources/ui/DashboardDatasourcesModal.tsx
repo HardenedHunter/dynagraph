@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { useGate, useUnit } from "effector-react";
+import { useUnit } from "effector-react";
 
 import {
+  BlockLoader,
   Button,
   confirmationModal,
-  Icon,
   ModalWindow,
   Panel,
 } from "~/shared/ui";
@@ -23,11 +23,9 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   dashboardId,
 }) => {
   const [datasources, isLoading] = useUnit([
-    model.$datasources,
+    model.$datasourcesArray,
     model.$pending,
   ]);
-
-  useGate(model.Gate, dashboardId);
 
   const mutation =
     api.dashboardDatasource.removeDatasourceFromDashboard.useMutation({
@@ -37,13 +35,13 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
       },
     });
 
-  const handleRemove = async (d: Datasource) => {
+  const handleRemove = async (entity: Datasource) => {
     await dashboardDatasourcesModal.close();
     confirmationModal.push({
       title: "Remove datasource",
-      description: `Are you sure you want to delete datasource "${d.name}"?`,
+      description: `Are you sure you want to remove datasource "${entity.name}"?`,
       onConfirm: async () => {
-        await mutation.mutateAsync(d.id);
+        await mutation.mutateAsync(entity.id);
       },
       onCancel: () => dashboardDatasourcesModal.push({ dashboardId }),
     });
@@ -63,11 +61,7 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   return (
     <ModalWindow title="Datasources">
       <div className="h-96">
-        {isLoading && (
-          <div className="flex h-full items-center justify-center">
-            <Icon icon="spinner" className="animate-spin" />
-          </div>
-        )}
+        {isLoading && <BlockLoader />}
         {renderEmpty && (
           <div className="flex h-full flex-col items-center justify-center gap-4">
             <p className="text-xl">This dashboard has no datasources!</p>
@@ -75,28 +69,31 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
           </div>
         )}
         {renderItems && (
-          <div className="h-full overflow-y-scroll">
-            <Button onClick={handleAdd}>Add datasource</Button>
+          <div className="h-full overflow-y-auto">
+            <Button onClick={handleAdd} tabIndex={-1}>
+              Add datasource
+            </Button>
             <ul className="mt-6 flex flex-col gap-2">
-              {datasources.map((d) => (
-                <li key={d.id}>
+              {datasources.map(({ entity }) => (
+                <li key={entity.id}>
                   <Panel className="grid grid-cols-[100px_1fr_24px] gap-4 !bg-neutral-100">
                     <p
                       className="overflow-hidden text-ellipsis whitespace-nowrap"
-                      title={d.name}
+                      title={entity.name}
                     >
-                      {d.name}
+                      {entity.name}
                     </p>
                     <p
-                      className="overflow-hidden text-ellipsis whitespace-nowrap"
-                      title={d.url}
+                      className="overflow-hidden text-ellipsis whitespace-nowrap underline"
+                      title={entity.url}
                     >
-                      {d.url}
+                      {entity.url}
                     </p>
                     <Button.Icon
                       icon="trash"
                       iconProps={{ size: "sm" }}
-                      onClick={() => handleRemove(d)}
+                      onClick={() => handleRemove(entity)}
+                      tabIndex={-1}
                     />
                   </Panel>
                 </li>

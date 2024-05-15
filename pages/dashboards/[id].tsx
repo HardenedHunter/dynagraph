@@ -6,6 +6,7 @@ import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
 import { dashboardWidgetsModel } from "~/modules/dashboardWidgets";
 import { DashboardsLayout } from "~/layouts/dashboardsLayout";
 import { Dashboard, dashboardModel } from "~/pages/dashboard";
+import { dashboardDatasourcesModel } from "~/features/dashboardDatasources";
 
 const _Dashboard: CustomNextPage = Dashboard;
 
@@ -28,10 +29,8 @@ export const getServerSideProps: GetServerSideProps<
   await Promise.all([
     allSettled(dashboardsDrawerModel.getDashboards, { scope }),
     allSettled(dashboardModel.getDashboard, { scope, params: id }),
-    allSettled(dashboardWidgetsModel.getWidgets, {
-      scope,
-      params: id,
-    }),
+    allSettled(dashboardWidgetsModel.getWidgets, { scope, params: id }),
+    allSettled(dashboardDatasourcesModel.getDatasources, { scope, params: id }),
   ]);
 
   return { props: { values: serialize(scope) } };

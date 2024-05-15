@@ -80,7 +80,7 @@ export const Select = <T extends SelectOption = string>({
             <Listbox.Options
               className={clsx(
                 block && "w-full",
-                "absolute z-10 mt-1 max-h-60 overflow-auto rounded border-[1px] border-neutral-300 bg-white py-1 outline-none",
+                "absolute z-10 mt-1 max-h-60 overflow-auto rounded border-[1px] border-neutral-300 bg-white py-1 shadow-md outline-none",
               )}
             >
               {options.map((option, index) => (
@@ -88,7 +88,7 @@ export const Select = <T extends SelectOption = string>({
                   key={index}
                   value={option}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                       active ? "bg-violet-100 text-violet-900" : "text-gray-900"
                     }`
                   }

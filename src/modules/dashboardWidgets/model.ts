@@ -4,7 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 
 import { apiClient } from "~/shared/api";
 
-type SerializedWidget =
+export type SerializedWidget =
   | {
       mdxSource: MDXRemoteSerializeResult;
       error: undefined;
