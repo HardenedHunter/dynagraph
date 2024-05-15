@@ -8,6 +8,7 @@ const defaultDashboardWidgetSelect =
   Prisma.validator<Prisma.DashboardWidgetSelect>()({
     id: true,
     dashboardId: true,
+    datasourceId: true,
     widget: true,
   });
 

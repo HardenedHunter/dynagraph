@@ -13,6 +13,7 @@ type SelectProps<T> = {
   error?: string;
   label?: string;
   block?: boolean;
+  className?: string;
   buttonClassName?: string;
 };
 
@@ -29,6 +30,7 @@ const isEqual = (selected: SelectOption | undefined, current: SelectOption) => {
   if (typeof selected === "object" && typeof current === "object") {
     return selected.id === current.id;
   }
+  console.log(selected, current);
 
   throw "unreachable";
 };
@@ -40,6 +42,7 @@ export const Select = <T extends SelectOption = string>({
   error,
   block,
   label,
+  className,
   buttonClassName,
 }: SelectProps<T>) => {
   const id = useId();
@@ -48,7 +51,7 @@ export const Select = <T extends SelectOption = string>({
     value === undefined ? "-Select-" : getOptionLabel(value);
 
   return (
-    <div>
+    <div className={className}>
       <label htmlFor={id}>{label && <p className="mb-1">{label}</p>}</label>
       <Listbox value={value} onChange={onChange} by={isEqual}>
         <div className="relative">
@@ -77,7 +80,7 @@ export const Select = <T extends SelectOption = string>({
             <Listbox.Options
               className={clsx(
                 block && "w-full",
-                "absolute mt-1 max-h-60 overflow-auto rounded border-[1px] border-neutral-300 bg-white py-1 outline-none",
+                "absolute z-10 mt-1 max-h-60 overflow-auto rounded border-[1px] border-neutral-300 bg-white py-1 outline-none",
               )}
             >
               {options.map((option, index) => (
