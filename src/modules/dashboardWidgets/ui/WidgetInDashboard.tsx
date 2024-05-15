@@ -43,7 +43,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   return (
     <Panel {...rest} className={clsx("relative", rest.className)} ref={null}>
       <Menu className="absolute right-0 top-0" options={menuOptions}>
-        <div className="p-3 pb-0">
+        <div className="pr-2 pt-1">
           <Icon icon="ellipsis-vertical" />
         </div>
       </Menu>

@@ -71,7 +71,7 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
 
   return (
     <ModalWindow title="Add widget to dashboard">
-      {isLoading && <BlockLoader />}
+      {isLoading && <BlockLoader className="h-[210px]" />}
       {!isLoading && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
