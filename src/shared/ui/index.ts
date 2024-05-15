@@ -1,6 +1,7 @@
 export { MainLayout } from "./MainLayout";
 export { Header } from "./Header";
 export { Button } from "./Button";
+export { BlockLoader } from "./BlockLoader";
 export { Icon, type IconProps } from "./Icon";
 export { Panel, type PanelProps } from "./Panel";
 export { ModalWindow } from "./ModalWindow";
