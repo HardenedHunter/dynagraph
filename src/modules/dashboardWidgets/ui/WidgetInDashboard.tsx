@@ -41,7 +41,14 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   ];
 
   return (
-    <Panel {...rest} className={clsx("relative", rest.className)} ref={null}>
+    <Panel
+      {...rest}
+      className={clsx("relative pt-10", rest.className)}
+      ref={null}
+    >
+      <p className="absolute left-4 top-2 text-xs font-bold">
+        {widget.displayedName}
+      </p>
       <Menu className="absolute right-0 top-0" options={menuOptions}>
         <div className="pr-2 pt-1">
           <Icon icon="ellipsis-vertical" />

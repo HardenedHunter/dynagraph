@@ -6,12 +6,13 @@ import { z } from "zod";
 
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
-import { BlockLoader, Button, ModalWindow, Select } from "~/shared/ui";
+import { BlockLoader, Button, Input, ModalWindow, Select } from "~/shared/ui";
 import { model } from "./model";
 
 const name = "AddWidgetToDashboardModal";
 
 const schema = z.object({
+  displayedName: z.string().min(1),
   widget: z.object({
     id: z.string(),
     name: z.string(),
@@ -40,6 +41,9 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
 }) => {
   const {
     control,
+    register,
+    getValues,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -62,18 +66,27 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
   });
 
   const onSubmit = (data: FormData) => {
+    const { widget, datasource, displayedName } = data;
+
     mutation.mutate({
-      widgetId: data.widget.id,
-      datasourceId: data.datasource?.id,
+      widgetId: widget.id,
+      datasourceId: datasource?.id,
       dashboardId,
+      displayedName,
     });
   };
 
   return (
     <ModalWindow title="Add widget to dashboard">
-      {isLoading && <BlockLoader className="!h-[210px]" />}
+      {isLoading && <BlockLoader className="!h-[288px]" />}
       {!isLoading && (
         <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            block
+            label="Displayed name"
+            error={errors.displayedName?.message}
+            {...register("displayedName")}
+          />
           <Controller
             control={control}
             name="widget"
@@ -81,11 +94,16 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
               return (
                 <Select
                   block
+                  className="mt-2"
                   label="Widget"
                   error={errors.widget?.message}
                   options={widgets}
                   value={field.value}
                   onChange={(value) => {
+                    if (!getValues().displayedName) {
+                      setValue("displayedName", value.name);
+                    }
+
                     field.onChange(value);
                     field.onBlur();
                   }}

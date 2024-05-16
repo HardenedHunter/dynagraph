@@ -19,6 +19,7 @@ export type DashboardWidget = {
   widgetId: string;
   dashboardId: string;
   datasourceId: string | null;
+  displayedName: string;
   serialized: SerializedWidget;
 };
 
@@ -31,15 +32,18 @@ const getWidgetsFx = createEffect(async (dashboardId: string) => {
     await apiClient.dashboardWidget.getWidgetsByDashboardId.query(dashboardId);
 
   return await Promise.all(
-    dashboardWidgets.map(async ({ id, dashboardId, datasourceId, widget }) => {
-      return {
-        id,
-        dashboardId,
-        datasourceId,
-        widgetId: widget.id,
-        serialized: await serializeRawWidget(widget),
-      };
-    }),
+    dashboardWidgets.map(
+      async ({ id, dashboardId, datasourceId, displayedName, widget }) => {
+        return {
+          id,
+          dashboardId,
+          datasourceId,
+          displayedName,
+          widgetId: widget.id,
+          serialized: await serializeRawWidget(widget),
+        };
+      },
+    ),
   );
 });
 

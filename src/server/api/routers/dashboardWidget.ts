@@ -10,6 +10,7 @@ const defaultDashboardWidgetSelect =
     dashboardId: true,
     datasourceId: true,
     widget: true,
+    displayedName: true,
   });
 
 export const dashboardWidgetRouter = createTRPCRouter({

@@ -27,13 +27,14 @@ model Dashboard {
 }
 
 model DashboardWidget {
-    id           String               @id @default(cuid())
-    widgetId     String
-    dashboardId  String
-    datasourceId String?
-    widget       Widget               @relation(fields: [widgetId], references: [id])
-    dashboard    Dashboard            @relation(fields: [dashboardId], references: [id])
-    datasource   DashboardDatasource? @relation(fields: [datasourceId], references: [id])
+    id            String               @id @default(cuid())
+    widgetId      String
+    dashboardId   String
+    datasourceId  String?
+    displayedName String
+    widget        Widget               @relation(fields: [widgetId], references: [id])
+    dashboard     Dashboard            @relation(fields: [dashboardId], references: [id])
+    datasource    DashboardDatasource? @relation(fields: [datasourceId], references: [id])
 }
 
 model DashboardDatasource {
