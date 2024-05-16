@@ -13,19 +13,19 @@ type BaseActions = {
   close: () => Promise<void>;
 };
 
-// Умная типизация функции xxxModal.push
+// Умная типизация функции xxxModal.open
 // в зависимости от пропсов (Т) самой модалки
 type ActionsWithOptionalArgument<
   T extends Record<string, unknown> = Record<string, never>,
 > =
   // Если пропсов нет (extends Record<string, never>), функция без аргументов
   T extends Record<string, never>
-    ? { push: () => void }
+    ? { open: () => Promise<void> }
     : // Если в пропсах все поля опциональные, аргумент функции тоже опциональный
     RequiredKeys<T> extends never
-    ? { push: (data?: T) => void }
+    ? { open: (data?: T) => Promise<void> }
     : // В других случаях аргумент (пропсы) прокидывать обязательно
-      { push: (data: T) => void };
+      { open: (data: T) => Promise<void> };
 
 type CreateModalActionsReturn<
   T extends Record<string, unknown> = Record<string, never>,
@@ -52,7 +52,7 @@ const getPropslessComponent = <
 };
 
 /**
- * Создание функций для управления модальным окном (push, replace, close)
+ * Создание функций для управления модальным окном (open, close)
  * с привязкой к стору
  * */
 export const createModalActions = <
@@ -66,14 +66,21 @@ export const createModalActions = <
 }): CreateModalActionsReturn<T> => {
   return {
     name,
-    push: (data: T extends Record<string, never> ? never : T) => {
+    open: async (data: T extends Record<string, never> ? never : T) => {
       const PropslessComponent = getPropslessComponent(Component, data);
       const scope = getClientScope();
 
       if (scope) {
-        const event = scopeBind(modalModel.push, { scope });
+        await new Promise<void>((resolve) => {
+          const event = scopeBind(modalModel.open, { scope });
 
-        event({ name, Component: PropslessComponent, isClosing: false });
+          event({
+            name,
+            Component: PropslessComponent,
+            isClosing: false,
+            onEnter: resolve,
+          });
+        });
       }
     },
     close: async () => {

@@ -22,36 +22,41 @@ type DashboardDatasourcesModalProps = {
 const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   dashboardId,
 }) => {
-  const [datasources, isLoading] = useUnit([
+  const [datasources, isLoading, getDatasources] = useUnit([
     model.$datasourcesArray,
     model.$pending,
+    model.getDatasources,
   ]);
 
   const mutation =
     api.dashboardDatasource.removeDatasourceFromDashboard.useMutation({
       onSuccess: async () => {
         await confirmationModal.close();
-        dashboardDatasourcesModal.push({ dashboardId });
+        getDatasources(dashboardId);
+        dashboardDatasourcesModal.open({ dashboardId });
       },
     });
 
   const handleRemove = async (entity: Datasource) => {
     await dashboardDatasourcesModal.close();
-    confirmationModal.push({
+    confirmationModal.open({
       title: "Remove datasource",
       description: `Are you sure you want to remove datasource "${entity.name}"?`,
       onConfirm: async () => {
         await mutation.mutateAsync(entity.id);
       },
-      onCancel: () => dashboardDatasourcesModal.push({ dashboardId }),
+      onCancel: () => dashboardDatasourcesModal.open({ dashboardId }),
     });
   };
 
   const handleAdd = async () => {
     await dashboardDatasourcesModal.close();
-    addDatasourceModal.push({
+    addDatasourceModal.open({
       dashboardId,
-      onAdd: () => dashboardDatasourcesModal.push({ dashboardId }),
+      onAdd: () => {
+        getDatasources(dashboardId);
+        dashboardDatasourcesModal.open({ dashboardId });
+      },
     });
   };
 

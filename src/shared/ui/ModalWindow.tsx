@@ -1,9 +1,9 @@
 import { Fragment, ReactNode, MutableRefObject } from "react";
 import { Transition, Dialog } from "@headlessui/react";
+import { useUnit } from "effector-react";
 import clsx from "clsx";
 
 import { Button } from "~/shared/ui";
-import { useUnit } from "effector-react";
 import { modalModel } from "~/shared/model";
 
 type ModalWindowProps = {
@@ -18,10 +18,11 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
   children,
   initialFocus,
 }) => {
-  const [modal, close, remove] = useUnit([
+  const [modal, close, enter, leave] = useUnit([
     modalModel.$modal,
     modalModel.close,
-    modalModel.remove,
+    modalModel.enter,
+    modalModel.leave,
   ]);
 
   const handleClose = () => {
@@ -33,7 +34,8 @@ export const ModalWindow: FCC<ModalWindowProps> = ({
       appear
       show={!modal?.isClosing}
       as={Fragment}
-      afterLeave={remove}
+      afterLeave={leave}
+      afterEnter={enter}
     >
       <Dialog
         initialFocus={initialFocus}

@@ -1,49 +1,63 @@
 import { FC } from "react";
-import { createEvent, createStore, sample } from "effector";
+import { createEffect, createEvent, createStore, sample } from "effector";
+import { spread } from "patronum";
 
 export type ModalData = {
   isClosing: boolean;
-  onClose?: () => void;
+  onLeave?: () => void;
+  onEnter?: () => void;
   name: string;
   Component: FC;
 };
 
 const $modal = createStore<ModalData | null>(null);
 
-const push = createEvent<ModalData>();
+// Используются внешним миром для инициации открытия
+const open = createEvent<ModalData>();
 const close = createEvent<(() => void) | void>();
-const remove = createEvent();
 
-sample({ clock: push, target: $modal });
+// Вызываются только самим ModalWindow,
+// когда закончилась анимация открытия/закрытия
+const enter = createEvent();
+const leave = createEvent();
+
+// Эффект, в котором будут резолвиться промисы после enter/leave
+const resolveAnimationFx = createEffect((resolve?: () => void) => resolve?.());
+
+sample({ clock: open, target: $modal });
 
 sample({
   clock: close,
   source: $modal,
   filter: (data): data is ModalData => !!data,
-  fn: (data: ModalData, onClose) => ({
+  fn: (data: ModalData, onLeave) => ({
     ...data,
     isClosing: true,
-    onClose: onClose ?? undefined,
+    onLeave: onLeave ?? undefined,
   }),
   target: $modal,
 });
 
 sample({
-  clock: remove,
+  clock: enter,
   source: $modal,
   filter: (data): data is ModalData => !!data,
-  fn: (data: ModalData) => {
-    // TODO Сайд-эффект в чистой функции, не очень хорошо
-    if (data.onClose) data.onClose();
+  fn: (data: ModalData) => data.onEnter,
+  target: resolveAnimationFx,
+});
 
-    return null;
-  },
-  target: $modal,
+sample({
+  clock: leave,
+  source: $modal,
+  filter: (data): data is ModalData => !!data,
+  fn: (data: ModalData) => ({ modal: null, onLeave: data.onLeave }),
+  target: spread({ modal: $modal, onLeave: resolveAnimationFx }),
 });
 
 export const model = {
-  push,
+  open,
   close,
-  remove,
+  enter,
+  leave,
   $modal,
 };

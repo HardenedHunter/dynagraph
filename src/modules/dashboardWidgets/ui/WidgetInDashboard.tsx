@@ -23,7 +23,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   });
 
   const handleRemove = () => {
-    confirmationModal.push({
+    confirmationModal.open({
       title: "Remove this widget?",
       description: "Are you sure you want to remove this widget?",
       onConfirm: async () => {

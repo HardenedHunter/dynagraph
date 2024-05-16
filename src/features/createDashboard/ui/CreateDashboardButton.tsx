@@ -11,7 +11,7 @@ export const CreateDashboardButton: FC<CreateDashboardButtonProps> = ({
   onCreate,
 }) => {
   const handleClick = () => {
-    createDashboardModal.push({ onCreate });
+    createDashboardModal.open({ onCreate });
   };
 
   return (

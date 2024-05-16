@@ -15,14 +15,14 @@ export const DashboardToolbox: FC<DashboardToolboxProps> = ({
   onAddWidget,
 }) => {
   const handleAddWidget = () => {
-    addWidgetToDashboardModal.push({
+    addWidgetToDashboardModal.open({
       dashboardId: dashboard.id,
       onAdd: onAddWidget,
     });
   };
 
   const handleOpenDatasources = () => {
-    dashboardDatasourcesModal.push({ dashboardId: dashboard.id });
+    dashboardDatasourcesModal.open({ dashboardId: dashboard.id });
   };
 
   return (

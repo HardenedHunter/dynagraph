@@ -10,7 +10,7 @@ type CreateWidgetPanelProps = {
 
 export const CreateWidgetPanel: FC<CreateWidgetPanelProps> = ({ onCreate }) => {
   const handleClick = () => {
-    createWidgetModal.push({ onCreate });
+    createWidgetModal.open({ onCreate });
   };
 
   return (

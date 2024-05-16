@@ -7,7 +7,7 @@ type WidgetLoadingErrorProps = {
 
 export const WidgetLoadingError: FCC<WidgetLoadingErrorProps> = ({ error }) => {
   const handleClick = () => {
-    widgetLoadingErrorModal.push({ error });
+    widgetLoadingErrorModal.open({ error });
   };
 
   return (
