@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { Icon, type IconProps } from "./Icon";
 
 type ButtonVariant = "primary" | "secondary" | "error" | "warning";
+type FillVariant = "border" | "full";
 type ButtonSize = "md" | "lg";
 
 const button = cva(
@@ -16,26 +17,52 @@ const button = cva(
   {
     variants: {
       variant: {
-        primary:
-          "border-transparent bg-violet-500 hover:bg-violet-500 focus:ring-violet-500 focus:ring-offset-neutral-50",
+        primary: "focus:ring-violet-500 focus:ring-offset-neutral-50",
         secondary:
-          "border-neutral-400 bg-neutral-50 hover:bg-neutral-300 text-neutral-800 focus:ring-neutral-800 focus:ring-offset-neutral-50",
+          "border-neutral-400 bg-neutral-50 hover:bg-neutral-200 text-neutral-800 focus:ring-neutral-800 focus:ring-offset-neutral-50",
         warning:
           "border-transparent bg-amber-400 hover:bg-amber-300 text-neutral-800",
-        error:
-          "border-transparent bg-red-400 text-neutral-800 hover:bg-red-500",
+        error: "focus:ring-red-500 focus:ring-offset-neutral-50",
+      },
+      fillVariant: {
+        border: "",
+        full: "",
       },
       size: {
         md: "text-xs px-8 py-2 rounded font-semibold",
         lg: "text-sm px-8 py-3 rounded font-semibold",
       },
     },
+    compoundVariants: [
+      {
+        variant: "primary",
+        fillVariant: "full",
+        class: "bg-violet-500 hover:bg-violet-500",
+      },
+      {
+        variant: "primary",
+        fillVariant: "border",
+        class:
+          "border-violet-500 bg-neutral-50 hover:bg-violet-100 text-violet-800",
+      },
+      {
+        variant: "error",
+        fillVariant: "full",
+        class: "bg-red-500 hover:bg-red-600 text-neutral-50",
+      },
+      {
+        variant: "error",
+        fillVariant: "border",
+        class: "border-red-500 bg-neutral-50 hover:bg-red-100 text-red-800",
+      },
+    ],
   },
 );
 
 type ButtonProps = React.ComponentProps<"button"> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
+  fillVariant?: FillVariant;
   block?: boolean;
 };
 
@@ -58,6 +85,7 @@ export const Button: ButtonComponent = forwardRef<
       block,
       size = "md",
       variant = "primary",
+      fillVariant = "full",
       type = "button",
       ...props
     },
@@ -70,7 +98,7 @@ export const Button: ButtonComponent = forwardRef<
         ref={ref}
         className={clsx(
           block && "w-full",
-          button({ variant, size }),
+          button({ variant, fillVariant, size }),
           className,
         )}
       />
