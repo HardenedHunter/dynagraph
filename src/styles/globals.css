@@ -13,7 +13,7 @@ body {
 
 .react-grid-item.react-grid-placeholder {
   z-index: -1;
-  @apply bg-violet-400;
+  @apply bg-violet-600;
 }
 
 .react-draggable-transparent-selection { 
@@ -41,4 +41,8 @@ body {
 
 .react-grid-item {
   transition-duration: 0ms;
+}
+
+.react-grid-item.resizing {
+  opacity: 50%;
 }
