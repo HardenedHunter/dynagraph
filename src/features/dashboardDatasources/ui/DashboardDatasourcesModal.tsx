@@ -46,6 +46,7 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
         await mutation.mutateAsync(entity.id);
       },
       onCancel: () => dashboardDatasourcesModal.open({ dashboardId }),
+      confirmProps: { variant: "error" },
     });
   };
 

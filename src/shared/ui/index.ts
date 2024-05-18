@@ -1,6 +1,12 @@
 export { MainLayout } from "./MainLayout";
 export { Header } from "./Header";
-export { Button } from "./Button";
+export {
+  Button,
+  type ButtonVariant,
+  type ButtonFillVariant,
+  type ButtonSize,
+  type ButtonProps,
+} from "./Button";
 export { BlockLoader } from "./BlockLoader";
 export { Icon, type IconProps } from "./Icon";
 export { Panel, type PanelProps } from "./Panel";

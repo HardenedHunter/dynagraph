@@ -20,6 +20,10 @@ export const Dashboard: FC = () => {
     void router.replace(router.asPath);
   };
 
+  const handleDashboardDeletion = () => {
+    void router.replace("/dashboards");
+  };
+
   return (
     <div
       key={dashboard.id}
@@ -28,6 +32,7 @@ export const Dashboard: FC = () => {
       <DashboardToolbox
         dashboard={dashboard}
         onAddWidget={handleWidgetAddition}
+        onDeleteDashboard={handleDashboardDeletion}
       />
       <DashboardWidgets className="mt-6" onRemoveWidget={handleWidgetRemoval} />
     </div>

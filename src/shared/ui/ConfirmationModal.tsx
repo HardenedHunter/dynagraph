@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { Button, ModalWindow } from "~/shared/ui";
+import { Button, ButtonProps, ModalWindow } from "~/shared/ui";
 import { createModalActions } from "~/shared/misc";
 
 const name = "ConfirmationModal";
@@ -10,6 +10,8 @@ type ConfirmationModalProps = {
   description: string;
   confirmText?: string;
   cancelText?: string;
+  confirmProps?: ButtonProps;
+  cancelProps?: ButtonProps;
   onConfirm: () => void | Promise<void>;
   onCancel?: () => void | Promise<void>;
 };
@@ -19,6 +21,8 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   description,
   confirmText = "Yes",
   cancelText = "No",
+  confirmProps,
+  cancelProps,
   onConfirm,
   onCancel,
 }) => {
@@ -41,7 +45,13 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
     <ModalWindow title={title}>
       {description}
       <section className="mt-6 flex gap-4">
-        <Button block size="lg" onClick={handleConfirm} disabled={isLoading}>
+        <Button
+          block
+          size="lg"
+          onClick={handleConfirm}
+          disabled={isLoading}
+          {...confirmProps}
+        >
           {confirmText}
         </Button>
         <Button
@@ -50,6 +60,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
           variant="secondary"
           onClick={handleCancel}
           disabled={isLoading}
+          {...cancelProps}
         >
           {cancelText}
         </Button>

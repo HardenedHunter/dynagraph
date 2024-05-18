@@ -32,8 +32,8 @@ model DashboardWidget {
     dashboardId   String
     datasourceId  String?
     displayedName String
-    widget        Widget               @relation(fields: [widgetId], references: [id])
-    dashboard     Dashboard            @relation(fields: [dashboardId], references: [id])
+    widget        Widget               @relation(fields: [widgetId], references: [id], onDelete: Cascade)
+    dashboard     Dashboard            @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
     datasource    DashboardDatasource? @relation(fields: [datasourceId], references: [id])
 }
 
@@ -42,6 +42,6 @@ model DashboardDatasource {
     dashboardId     String
     name            String
     url             String
-    dashboard       Dashboard         @relation(fields: [dashboardId], references: [id])
+    dashboard       Dashboard         @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
     dashboardWidget DashboardWidget[]
 }

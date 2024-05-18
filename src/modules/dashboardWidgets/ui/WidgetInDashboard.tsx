@@ -29,6 +29,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       onConfirm: async () => {
         await mutation.mutateAsync(widget.id);
       },
+      confirmProps: { variant: "error" },
     });
   };
 
@@ -49,12 +50,12 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       <p className="absolute left-4 top-2 text-xs font-bold">
         {widget.displayedName}
       </p>
+      <WidgetBody widget={widget} />
       <Menu className="absolute right-0 top-0" options={menuOptions}>
         <div className="pr-2 pt-1">
           <Icon icon="ellipsis-vertical" />
         </div>
       </Menu>
-      <WidgetBody widget={widget} />
     </Panel>
   );
 };

@@ -1,4 +1,4 @@
-import {
+import React, {
   type ForwardRefExoticComponent,
   forwardRef,
   type RefAttributes,
@@ -8,9 +8,9 @@ import clsx from "clsx";
 
 import { Icon, type IconProps } from "./Icon";
 
-type ButtonVariant = "primary" | "secondary" | "error" | "warning";
-type FillVariant = "border" | "full";
-type ButtonSize = "md" | "lg";
+export type ButtonVariant = "primary" | "secondary" | "error" | "warning";
+export type ButtonFillVariant = "border" | "full";
+export type ButtonSize = "md" | "lg";
 
 const button = cva(
   "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 text-neutral-50 border-[1px]",
@@ -59,25 +59,27 @@ const button = cva(
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> & {
+type InternalButtonProps = React.ComponentProps<"button"> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
-  fillVariant?: FillVariant;
+  fillVariant?: ButtonFillVariant;
   block?: boolean;
 };
 
 type ButtonComponent = ForwardRefExoticComponent<
-  Omit<PropsWithClassName<ButtonProps>, "ref"> &
+  Omit<PropsWithClassName<InternalButtonProps>, "ref"> &
     RefAttributes<HTMLButtonElement>
 > & {
   Icon: typeof IconButton;
 };
 
+export type ButtonProps = React.ComponentProps<ButtonComponent>;
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const Button: ButtonComponent = forwardRef<
   HTMLButtonElement,
-  PropsWithClassName<ButtonProps>
+  PropsWithClassName<InternalButtonProps>
 >(
   (
     {
