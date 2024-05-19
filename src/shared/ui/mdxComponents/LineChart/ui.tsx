@@ -8,6 +8,7 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
+import { useYAxisWidth } from "~/shared/ui/mdxComponents/LineChart/lib";
 
 const colors = [
   "#f87171", // red-400
@@ -20,21 +21,6 @@ const colors = [
   "#f472b6", // pink-400
   "#a3a3a3", // neutral-400
 ];
-
-const getLongestValueLength = (data: LineChartData) => {
-  return data.reduce(
-    (length, item) =>
-      Math.max(
-        length,
-        ...Object.entries(item).map((entry) => {
-          if (entry[0] === "name") return 0;
-
-          return entry[1].toString().length;
-        }),
-      ),
-    0,
-  );
-};
 
 type LineChartDataItem = {
   name: string | number;
@@ -52,19 +38,20 @@ type LineChartProps = {
 };
 
 export const LineChart: FCC<LineChartProps> = ({ data, lines }) => {
-  const yAxisWidth = getLongestValueLength(data);
+  const { width: yAxisWidth, ref } = useYAxisWidth();
 
   const initialColorIndex = data.length % colors.length;
 
   return (
     <ResponsiveContainer>
       <RechartsLineChart
+        ref={ref}
         data={data}
         margin={{ top: 1, right: 1, left: 1, bottom: 1 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis width={yAxisWidth * 11} />
+        <YAxis width={yAxisWidth} />
         <Tooltip />
         <Legend />
         {lines.map(({ dataKey, stroke }, i) => (
