@@ -2,7 +2,11 @@ import { FC, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { MDXRemote } from "next-mdx-remote";
 
-import { BlockLoader } from "~/shared/ui";
+import {
+  BlockLoader,
+  LineChart,
+  transformPrometheusResponse,
+} from "~/shared/ui";
 import { useDatasource } from "~/features/dashboardDatasources";
 import { WidgetLoadingError } from "~/entities/widgetLoadingError";
 import { DashboardWidget } from "../model";
@@ -37,8 +41,13 @@ export const WidgetBody: FC<WidgetBodyProps> = ({ widget }) => {
         <Suspense fallback={<BlockLoader />}>
           <MDXRemote
             {...serialized.mdxSource}
-            components={{}}
-            scope={{ data: datasource?.data?.result }}
+            components={{ LineChart }}
+            scope={{
+              scope: {
+                data: datasource?.data?.result,
+                transformPrometheusResponse,
+              },
+            }}
           />
         </Suspense>
       )}

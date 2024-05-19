@@ -82,7 +82,7 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
             <ul className="mt-6 flex flex-col gap-2">
               {datasources.map(({ entity }) => (
                 <li key={entity.id}>
-                  <Panel className="grid grid-cols-[100px_1fr_24px] gap-4 !bg-neutral-100">
+                  <Panel className="grid grid-cols-[150px_1fr_24px] gap-4 !bg-neutral-100">
                     <p
                       className="overflow-hidden text-ellipsis whitespace-nowrap"
                       title={entity.name}

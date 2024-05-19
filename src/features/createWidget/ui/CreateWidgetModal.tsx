@@ -53,6 +53,7 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
           block
           label="Source"
           error={errors.source?.message}
+          className="font-mono"
           {...register("source")}
         />
         <Button block type="submit" size="lg" disabled={mutation.isLoading}>

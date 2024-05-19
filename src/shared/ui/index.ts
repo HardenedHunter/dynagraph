@@ -16,3 +16,5 @@ export { TextArea } from "./TextArea";
 export { Select } from "./Select";
 export { Menu } from "./Menu";
 export { confirmationModal } from "./ConfirmationModal";
+
+export * from "./mdxComponents";

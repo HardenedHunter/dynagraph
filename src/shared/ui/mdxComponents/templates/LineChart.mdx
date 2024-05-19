@@ -1,0 +1,10 @@
+{
+  (() => {
+    scope.transformed = scope.transformPrometheusResponse(scope.data);
+  })()
+}
+
+<LineChart
+  data={scope.transformed.data}
+  lines={scope.transformed.lines}
+/>
