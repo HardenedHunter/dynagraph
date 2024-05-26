@@ -19,7 +19,7 @@ export const CreateWidgetPanel: FC<CreateWidgetPanelProps> = ({ onCreate }) => {
       onClick={handleClick}
     >
       <Icon icon="plus" />
-      <p>Create widget</p>
+      <p>Создать виджет</p>
     </Panel>
   );
 };

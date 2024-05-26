@@ -11,8 +11,8 @@ export const useDeleteDashboard = (onDelete?: () => void) => {
 
   return (dashboardId: string) => {
     confirmationModal.open({
-      title: "Delete this widget?",
-      description: "Are you sure you want to delete this dashboard?",
+      title: "Удалить эту панель?",
+      description: "Вы уверены, что хотите удалить эту панель?",
       onConfirm: async () => {
         await mutation.mutateAsync(dashboardId);
       },

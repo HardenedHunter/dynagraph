@@ -41,23 +41,23 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
   };
 
   return (
-    <ModalWindow title="Create widget">
+    <ModalWindow title="Создать виджет">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Input
           block
-          label="Name"
+          label="Название"
           error={errors.name?.message}
           {...register("name")}
         />
         <TextArea
           block
-          label="Source"
+          label="Исходный код"
           error={errors.source?.message}
           className="font-mono"
           {...register("source")}
         />
         <Button block type="submit" size="lg" disabled={mutation.isLoading}>
-          Create
+          Создать
         </Button>
       </form>
     </ModalWindow>

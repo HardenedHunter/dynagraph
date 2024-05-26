@@ -19,8 +19,8 @@ type ConfirmationModalProps = {
 const ConfirmationModal: FC<ConfirmationModalProps> = ({
   title,
   description,
-  confirmText = "Yes",
-  cancelText = "No",
+  confirmText = "Да",
+  cancelText = "Нет",
   confirmProps,
   cancelProps,
   onConfirm,

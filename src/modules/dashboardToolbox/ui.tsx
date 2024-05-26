@@ -36,16 +36,16 @@ export const DashboardToolbox: FC<DashboardToolboxProps> = ({
 
   return (
     <section className="flex gap-2">
-      <Button onClick={handleAddWidget}>Add widget</Button>
+      <Button onClick={handleAddWidget}>Добавить виджет</Button>
       <Button variant="secondary" onClick={handleOpenDatasources}>
-        Datasources
+        Источники данных
       </Button>
       <Button
         fillVariant="border"
         variant="error"
         onClick={handleDeleteDashboard}
       >
-        Delete dashboard
+        Удалить панель
       </Button>
     </section>
   );

@@ -24,8 +24,8 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
 
   const handleRemove = () => {
     confirmationModal.open({
-      title: "Remove this widget?",
-      description: "Are you sure you want to remove this widget?",
+      title: "Убрать этот виджет с панели?",
+      description: "Вы уверены, что хотите убрать этот виджет?",
       onConfirm: async () => {
         await mutation.mutateAsync(widget.id);
       },
@@ -35,7 +35,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
 
   const menuOptions = [
     {
-      name: "Remove",
+      name: "Убрать",
       icon: "trash",
       onClick: handleRemove,
     } as const,

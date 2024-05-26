@@ -40,8 +40,8 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   const handleRemove = async (entity: Datasource) => {
     await dashboardDatasourcesModal.close();
     confirmationModal.open({
-      title: "Remove datasource",
-      description: `Are you sure you want to remove datasource "${entity.name}"?`,
+      title: "Удалить источник данных",
+      description: `Вы уверены, что хотите удалить источник данных "${entity.name}"?`,
       onConfirm: async () => {
         await mutation.mutateAsync(entity.id);
       },
@@ -65,19 +65,19 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   const renderItems = !isLoading && !!datasources.length;
 
   return (
-    <ModalWindow title="Datasources">
+    <ModalWindow title="Источники данных">
       <div className="h-96">
         {isLoading && <BlockLoader />}
         {renderEmpty && (
           <div className="flex h-full flex-col items-center justify-center gap-4">
-            <p className="text-xl">This dashboard has no datasources!</p>
-            <Button onClick={handleAdd}>Add datasource</Button>
+            <p className="text-xl">У этой панели еще нет источников данных!</p>
+            <Button onClick={handleAdd}>Добавить источник</Button>
           </div>
         )}
         {renderItems && (
           <div className="h-full overflow-y-auto">
             <Button onClick={handleAdd} tabIndex={-1}>
-              Add datasource
+              Добавить источник данных
             </Button>
             <ul className="mt-6 flex flex-col gap-2">
               {datasources.map(({ entity }) => (

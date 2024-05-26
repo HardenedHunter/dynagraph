@@ -32,7 +32,7 @@ const ColorPicker: FC = () => {
 
   return (
     <label>
-      <p>Color</p>
+      <p>Цвет</p>
       <div className="mt-3 flex flex-wrap gap-4">
         {colors.map((color) => (
           <div
@@ -66,7 +66,7 @@ const IconPicker: FC = () => {
 
   return (
     <label>
-      <p>Icon</p>
+      <p>Иконка</p>
       <div className="mt-3 flex flex-wrap gap-4">
         {icons.map((icon) => (
           <div

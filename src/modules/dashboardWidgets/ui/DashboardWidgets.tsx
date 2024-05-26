@@ -20,7 +20,7 @@ export const DashboardWidgets: FCC<DashboardWidgetsProps> = ({
   if (!widgets.length) {
     return (
       <section className="flex flex-grow flex-col items-center justify-center gap-6">
-        <h2 className="text-4xl font-bold">This dashboard is empty!</h2>
+        <h2 className="text-4xl font-bold">На этой панели пока ничего нет!</h2>
       </section>
     );
   }

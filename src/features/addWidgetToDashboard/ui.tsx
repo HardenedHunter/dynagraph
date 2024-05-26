@@ -77,13 +77,13 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
   };
 
   return (
-    <ModalWindow title="Add widget to dashboard">
+    <ModalWindow title="Добавить виджет на панель">
       {isLoading && <BlockLoader className="!h-[288px]" />}
       {!isLoading && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             block
-            label="Displayed name"
+            label="Отображаемое название"
             error={errors.displayedName?.message}
             {...register("displayedName")}
           />
@@ -95,7 +95,7 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
                 <Select
                   block
                   className="mt-2"
-                  label="Widget"
+                  label="Виджет"
                   error={errors.widget?.message}
                   options={widgets}
                   value={field.value}
@@ -119,7 +119,7 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
                 <Select
                   block
                   className="mt-2"
-                  label="Datasource"
+                  label="Источник данных"
                   error={errors.datasource?.message}
                   options={datasources}
                   value={field.value}
@@ -138,7 +138,7 @@ const AddWidgetToDashboardModal: FC<AddWidgetToDashboardModalProps> = ({
             size="lg"
             disabled={mutation.isLoading}
           >
-            Add
+            Добавить
           </Button>
         </form>
       )}

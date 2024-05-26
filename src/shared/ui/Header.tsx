@@ -42,10 +42,10 @@ export const Header: FCC = ({ className }) => (
       <nav>
         <ul className="flex gap-2">
           <li>
-            <NavLink href="/dashboards">Dashboards</NavLink>
+            <NavLink href="/dashboards">Панели</NavLink>
           </li>
           <li>
-            <NavLink href="/library">Library</NavLink>
+            <NavLink href="/library">Библиотека виджетов</NavLink>
           </li>
         </ul>
       </nav>

@@ -48,7 +48,7 @@ export const Select = <T extends SelectOption = string>({
   const id = useId();
 
   const buttonContent =
-    value === undefined ? "-Select-" : getOptionLabel(value);
+    value === undefined ? "- Выбрать -" : getOptionLabel(value);
 
   return (
     <div className={className}>

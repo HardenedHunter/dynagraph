@@ -52,7 +52,7 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
   const icon = watch("icon");
 
   return (
-    <ModalWindow title="Create new dashboard">
+    <ModalWindow title="Создать новую панель">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...form}>
           <section className="flex gap-6">
@@ -63,7 +63,7 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
             />
             <Input
               block
-              label="Name"
+              label="Название"
               error={errors.name?.message}
               {...register("name")}
             />
@@ -76,7 +76,7 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
             size="lg"
             disabled={mutation.isLoading}
           >
-            Create
+            Создать
           </Button>
         </FormProvider>
       </form>
