@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { MDXRemote } from "next-mdx-remote";
 
@@ -15,7 +15,7 @@ type WidgetBodyProps = {
   widget: DashboardWidget;
 };
 
-export const WidgetBody: FC<WidgetBodyProps> = ({ widget }) => {
+export const WidgetBody = React.memo<WidgetBodyProps>(({ widget }) => {
   const { datasourceId, serialized } = widget;
 
   const datasource = useDatasource(datasourceId);
@@ -54,4 +54,6 @@ export const WidgetBody: FC<WidgetBodyProps> = ({ widget }) => {
       {renderLoading && <BlockLoader />}
     </ErrorBoundary>
   );
-};
+});
+
+WidgetBody.displayName = "WidgetBody";

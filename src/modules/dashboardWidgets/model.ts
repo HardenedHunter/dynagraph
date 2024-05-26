@@ -66,7 +66,19 @@ const serializeRawWidget = async (raw: { id: string; source: string }) => {
   }
 };
 
+const $fullscreenWidget = createStore<DashboardWidget | null>(null);
+
+const openFullscreen = createEvent<DashboardWidget>();
+const closeFullscreen = createEvent();
+
+sample({ clock: openFullscreen, target: $fullscreenWidget });
+sample({ clock: closeFullscreen, fn: () => null, target: $fullscreenWidget });
+sample({ clock: getWidgets, target: closeFullscreen });
+
 export const model = {
   $widgets,
   getWidgets,
+  $fullscreenWidget,
+  openFullscreen,
+  closeFullscreen,
 };

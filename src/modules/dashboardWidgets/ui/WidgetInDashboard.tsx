@@ -1,9 +1,10 @@
 import clsx from "clsx";
+import { useUnit } from "effector-react";
 
 import { api } from "~/shared/api";
 import { confirmationModal, Icon, Menu, Panel, PanelProps } from "~/shared/ui";
 import { WidgetBody } from "./WidgetBody";
-import { DashboardWidget } from "../model";
+import { DashboardWidget, model } from "../model";
 
 type WidgetInDashboardProps = PanelProps & {
   widget: DashboardWidget;
@@ -15,12 +16,18 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   onRemove,
   ...rest
 }) => {
+  const openFullscreen = useUnit(model.openFullscreen);
+
   const mutation = api.dashboardWidget.removeWidgetFromDashboard.useMutation({
     onSuccess: () => {
       confirmationModal.close();
       onRemove?.();
     },
   });
+
+  const handleExpand = () => {
+    openFullscreen(widget);
+  };
 
   const handleRemove = () => {
     confirmationModal.open({
@@ -34,6 +41,11 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
   };
 
   const menuOptions = [
+    {
+      name: "Развернуть",
+      icon: "expand-arrows-alt",
+      onClick: handleExpand,
+    } as const,
     {
       name: "Убрать",
       icon: "trash",
