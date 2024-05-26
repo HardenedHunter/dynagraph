@@ -51,11 +51,11 @@ const AddDatasourceModal: FC<AddDatasourceModalProps> = ({
   };
 
   return (
-    <ModalWindow title="Add datasource">
+    <ModalWindow title="Добавить источник данных">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Input
           block
-          label="Name"
+          label="Название"
           error={errors.name?.message}
           {...register("name")}
         />
@@ -72,7 +72,7 @@ const AddDatasourceModal: FC<AddDatasourceModalProps> = ({
           size="lg"
           disabled={mutation.isLoading}
         >
-          Add
+          Добавить
         </Button>
       </form>
     </ModalWindow>

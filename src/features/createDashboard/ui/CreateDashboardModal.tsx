@@ -57,7 +57,7 @@ const CreateDashboardModal: FC<CreateDashboardModalProps> = ({ onCreate }) => {
         <FormProvider {...form}>
           <section className="flex gap-6">
             <DashboardCover
-              className="mt-6"
+              className="mt-5"
               backgroundColor={color}
               icon={icon}
             />

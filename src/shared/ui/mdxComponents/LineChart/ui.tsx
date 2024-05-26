@@ -59,6 +59,7 @@ export const LineChart: FCC<LineChartProps> = ({ data, lines }) => {
             key={i}
             type="monotone"
             dataKey={dataKey}
+            strokeWidth={2}
             stroke={stroke ?? colors[(initialColorIndex + i) % colors.length]}
             dot={false}
           />

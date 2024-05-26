@@ -66,7 +66,7 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
 
   return (
     <ModalWindow title="Источники данных">
-      <div className="h-96">
+      <div className="h-80">
         {isLoading && <BlockLoader />}
         {renderEmpty && (
           <div className="flex h-full flex-col items-center justify-center gap-4">

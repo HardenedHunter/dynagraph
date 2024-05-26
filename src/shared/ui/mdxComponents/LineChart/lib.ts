@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const useYAxisWidth = () => {
+  const triggered = useRef(false);
   const [width, setWidth] = useState(1);
 
   const ref = (ref: { container?: HTMLElement | undefined } | null) => {
@@ -10,7 +11,8 @@ export const useYAxisWidth = () => {
 
     const yAxis = container.querySelector(".yAxis");
 
-    if (yAxis) {
+    if (yAxis && !triggered.current) {
+      triggered.current = true;
       setWidth(yAxis.getBoundingClientRect().width);
     }
   };

@@ -1,7 +1,11 @@
 import { FC, PropsWithChildren } from "react";
+import { useUnit } from "effector-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import clsx from "clsx";
+
+// TODO это должно быть в shared?
+import { dashboardModel } from "~/pages/dashboard";
 
 type NavLinkProps = PropsWithChildren<{
   href: string;
@@ -26,29 +30,38 @@ const NavLink: FC<NavLinkProps> = ({ children, href }) => {
   );
 };
 
-export const Header: FCC = ({ className }) => (
-  <header
-    className={clsx(
-      className,
-      "flex h-16 items-center justify-center border-b-[1px] border-neutral-300 bg-neutral-50 px-6",
-    )}
-  >
-    <section className="flex max-w-[90rem] grow items-center gap-8">
-      <Link href="/">
-        <h1 className="text-xl font-bold md:text-3xl">
-          Dyna<span className="text-violet-500">graph</span>
-        </h1>
-      </Link>
-      <nav>
-        <ul className="flex gap-2">
-          <li>
-            <NavLink href="/dashboards">Панели</NavLink>
-          </li>
-          <li>
-            <NavLink href="/library">Библиотека виджетов</NavLink>
-          </li>
-        </ul>
-      </nav>
-    </section>
-  </header>
-);
+export const Header: FCC = ({ className }) => {
+  const dashboard = useUnit(dashboardModel.$dashboard);
+
+  return (
+    <header
+      className={clsx(
+        className,
+        "flex h-16 items-center justify-center border-b-[1px] border-neutral-300 bg-neutral-50 px-6",
+      )}
+    >
+      <section className="flex max-w-[90rem] grow items-center gap-8">
+        <Link href="/">
+          <h1 className="text-xl font-bold md:text-3xl">
+            Dyna<span className="text-violet-500">graph</span>
+          </h1>
+        </Link>
+        <nav>
+          <ul className="flex gap-2">
+            <li>
+              <NavLink href="/dashboards">
+                Панели{dashboard && ` / ${dashboard.name}`}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink href="/library">Библиотека виджетов</NavLink>
+            </li>
+            <li>
+              <NavLink href="/users">Пользователи</NavLink>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </header>
+  );
+};

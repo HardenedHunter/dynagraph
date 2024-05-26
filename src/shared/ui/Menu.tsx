@@ -34,7 +34,7 @@ export const Menu: FCC<MenuProps> = ({ children, className, options }) => {
         >
           <HeadlessMenu.Items
             as={Panel}
-            className="absolute right-0 mt-2 w-32 origin-top-right !p-1 shadow-xl outline-none"
+            className="absolute right-0 mt-2 w-36 origin-top-right !p-1 shadow-xl outline-none"
           >
             {options.map((option) => (
               <HeadlessMenu.Item key={option.name}>

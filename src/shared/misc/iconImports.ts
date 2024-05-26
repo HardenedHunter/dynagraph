@@ -14,4 +14,5 @@ export {
   faEllipsisVertical,
   faTrash,
   faExpandArrowsAlt,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";

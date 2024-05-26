@@ -29,7 +29,7 @@ export const transformPrometheusResponse = (response: PrometheusResponse) => {
       const dataKey = res.metric.id ?? res.metric.__name__;
 
       keySet.add(dataKey);
-      value[dataKey] = Number.parseFloat(entry[1]).toFixed(2);
+      value[dataKey] = Number.parseFloat(entry[1]);
       resultMap.set(entry[0], value);
     }),
   );
