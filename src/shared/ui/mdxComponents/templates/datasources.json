@@ -1,3 +1,6 @@
 [
-  "https://prometheus.demo.do.prometheus.io/api/v1/query_range?query=container_memory_usage_bytes%7Bid%3D%7E%22%2Fsystem.slice%2Fgrafana-server.service%7C%2Fsystem.slice%2Fcadvisor.service%22%7D&start=1716008769.032&end=1716051969.032&step=172"
+  "https://prometheus.demo.do.prometheus.io/api/v1/query_range?query=container_memory_usage_bytes%7Bid%3D%7E%22%2Fsystem.slice%2Fcadvisor.service%7C%2Fsystem.slice%2Fgrafana-server.service%22%7D%2F1048576&start=1716710042.539&end=1716753242.539&step=172",
+  "https://prometheus.demo.do.prometheus.io/api/v1/query_range?query=instance%3Anode_cpu_utilisation%3Arate5m&start=1716710042.539&end=1716753242.539&step=172",
+  "https://prometheus.demo.do.prometheus.io/api/v1/query_range?query=node_sockstat_TCP_inuse&start=1716710042.539&end=1716753242.539&step=172",
+  "https://prometheus.demo.do.prometheus.io/api/v1/query_range?query=instance%3Anode_vmstat_pgmajfault%3Arate5m&start=1716710042.539&end=1716753242.539&step=172"
 ]
