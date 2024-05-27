@@ -13,7 +13,7 @@ export const WidgetLoadingErrorModal: FC<WidgetLoadingErrorModalProps> = ({
   error,
 }) => {
   return (
-    <ModalWindow title="Failed to load widget">
+    <ModalWindow title="Ошибки загрузки виджета">
       <div className="max-h-80 w-full overflow-scroll pb-3">
         <pre>
           <p className="text-sm text-red-500">{error}</p>
@@ -25,7 +25,7 @@ export const WidgetLoadingErrorModal: FC<WidgetLoadingErrorModalProps> = ({
         size="lg"
         onClick={widgetLoadingErrorModal.close}
       >
-        Close
+        Закрыть
       </Button>
     </ModalWindow>
   );

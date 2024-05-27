@@ -15,6 +15,7 @@ export { Input } from "./Input";
 export { TextArea } from "./TextArea";
 export { Select } from "./Select";
 export { Menu } from "./Menu";
+export { CodeEditor } from "./CodeEditor";
 export { confirmationModal } from "./ConfirmationModal";
 
 export * from "./mdxComponents";

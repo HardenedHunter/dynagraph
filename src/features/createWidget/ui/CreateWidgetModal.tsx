@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Widget } from "@prisma/client";
 
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
-import { Button, Input, ModalWindow, TextArea } from "~/shared/ui";
+import { Button, CodeEditor, Input, ModalWindow } from "~/shared/ui";
 import { CreateWidgetContract, createWidgetSchema } from "~/server/contracts";
 
 const defaultValues: CreateWidgetContract = {
@@ -21,6 +21,7 @@ type CreateWidgetModalProps = {
 
 const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -49,12 +50,12 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
           error={errors.name?.message}
           {...register("name")}
         />
-        <TextArea
-          block
-          label="Исходный код"
-          error={errors.source?.message}
-          className="font-mono"
-          {...register("source")}
+        <Controller
+          control={control}
+          name="source"
+          render={({ field }) => (
+            <CodeEditor {...field} label="Исходный код" height={250} />
+          )}
         />
         <Button block type="submit" size="lg" disabled={mutation.isLoading}>
           Создать
