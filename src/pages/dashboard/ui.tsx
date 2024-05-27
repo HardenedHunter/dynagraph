@@ -37,7 +37,6 @@ export const Dashboard: FC = () => {
       key={dashboard.id}
       className="flex h-[calc(100vh-64px)] flex-col overflow-y-scroll p-4"
     >
-      {/* <model.UnmountGate /> */}
       <DashboardToolbox
         dashboard={dashboard}
         onAddWidget={handleWidgetAddition}

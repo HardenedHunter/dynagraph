@@ -54,7 +54,12 @@ const CreateWidgetModal: FC<CreateWidgetModalProps> = ({ onCreate }) => {
           control={control}
           name="source"
           render={({ field }) => (
-            <CodeEditor {...field} label="Исходный код" height={250} />
+            <CodeEditor
+              value={field.value}
+              onChange={field.onChange}
+              label="Исходный код"
+              height={250}
+            />
           )}
         />
         <Button block type="submit" size="lg" disabled={mutation.isLoading}>

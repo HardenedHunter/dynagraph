@@ -1,1 +1,1 @@
-export { CreateDashboardButton } from "./ui";
+export { CreateDashboardButton, createDashboardModal } from "./ui";
