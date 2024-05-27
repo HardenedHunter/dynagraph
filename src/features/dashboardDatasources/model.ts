@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createEffect, createEvent, createStore, sample } from "effector";
+import { createGate } from "effector-react";
 import { spread } from "patronum";
 
 import { apiClient, RouterOutputs } from "~/shared/api";
@@ -104,10 +105,15 @@ sample({
   target: $datasources,
 });
 
+const UnmountGate = createGate();
+
+$datasources.reset(UnmountGate.close);
+
 export const model = {
   getDatasources,
   getDataForDatasource,
   $datasources,
   $datasourcesArray,
   $pending: getDatasourcesFx.pending,
+  UnmountGate,
 };

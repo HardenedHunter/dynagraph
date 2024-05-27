@@ -1,14 +1,22 @@
 import { FC } from "react";
-import { useUnit } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 import { useRouter } from "next/router";
 
 import { DashboardToolbox } from "~/modules/dashboardToolbox";
-import { DashboardWidgets } from "~/modules/dashboardWidgets";
+import {
+  DashboardWidgets,
+  dashboardWidgetsModel,
+} from "~/modules/dashboardWidgets";
+import { dashboardDatasourcesModel } from "~/features/dashboardDatasources";
 import { model } from "./model";
 
 export const Dashboard: FC = () => {
   const dashboard = useUnit(model.$dashboard);
   const router = useRouter();
+
+  useGate(model.UnmountGate);
+  useGate(dashboardWidgetsModel.UnmountGate);
+  useGate(dashboardDatasourcesModel.UnmountGate);
 
   if (!dashboard) return null;
 
@@ -29,6 +37,7 @@ export const Dashboard: FC = () => {
       key={dashboard.id}
       className="flex h-[calc(100vh-64px)] flex-col overflow-y-scroll p-4"
     >
+      {/* <model.UnmountGate /> */}
       <DashboardToolbox
         dashboard={dashboard}
         onAddWidget={handleWidgetAddition}

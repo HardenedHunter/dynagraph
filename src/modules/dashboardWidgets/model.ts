@@ -1,4 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
+import { createGate } from "effector-react";
 import { type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 
@@ -73,7 +74,11 @@ const closeFullscreen = createEvent();
 
 sample({ clock: openFullscreen, target: $fullscreenWidget });
 sample({ clock: closeFullscreen, fn: () => null, target: $fullscreenWidget });
-sample({ clock: getWidgets, target: closeFullscreen });
+
+const UnmountGate = createGate();
+
+$widgets.reset(UnmountGate.close);
+$fullscreenWidget.reset(UnmountGate.close);
 
 export const model = {
   $widgets,
@@ -81,4 +86,5 @@ export const model = {
   $fullscreenWidget,
   openFullscreen,
   closeFullscreen,
+  UnmountGate,
 };

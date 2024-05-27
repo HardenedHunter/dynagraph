@@ -6,10 +6,10 @@ await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
-  
+  reactStrictMode: false,
+
   experimental: {
-    swcPlugins: [["effector-swc-plugin", {}]]
+    swcPlugins: [["effector-swc-plugin", {}]],
   },
 
   /**
