@@ -1,28 +1,31 @@
 import { FC } from "react";
 import { Dashboard } from "@prisma/client";
+import { useRouter } from "next/router";
+import { useUnit } from "effector-react";
 
 import { Button } from "~/shared/ui";
 import { addWidgetToDashboardModal } from "~/features/addWidgetToDashboard";
 import { dashboardDatasourcesModal } from "~/features/dashboardDatasources";
 import { useDeleteDashboard } from "~/features/deleteDashboard";
+import { dashboardWidgetsModel } from "~/modules/dashboardWidgets";
 
 type DashboardToolboxProps = {
   dashboard: Dashboard;
-  onAddWidget?: () => void;
-  onDeleteDashboard?: () => void;
 };
 
-export const DashboardToolbox: FC<DashboardToolboxProps> = ({
-  dashboard,
-  onAddWidget,
-  onDeleteDashboard,
-}) => {
-  const deleteDashboard = useDeleteDashboard(onDeleteDashboard);
+export const DashboardToolbox: FC<DashboardToolboxProps> = ({ dashboard }) => {
+  const router = useRouter();
+
+  const deleteDashboard = useDeleteDashboard(
+    () => void router.replace("/dashboards"),
+  );
+
+  const getWidgets = useUnit(dashboardWidgetsModel.getWidgets);
 
   const handleAddWidget = () => {
     addWidgetToDashboardModal.open({
       dashboardId: dashboard.id,
-      onAdd: onAddWidget,
+      onAdd: () => getWidgets(dashboard.id),
     });
   };
 

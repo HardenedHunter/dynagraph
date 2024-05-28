@@ -8,14 +8,17 @@ import { WidgetInDashboard } from "./WidgetInDashboard";
 import { model } from "../model";
 
 type WidgetGridProps = {
-  onRemoveWidget?: () => void;
+  dashboardId: string;
 };
 
 export const WidgetGrid: FCC<WidgetGridProps> = ({
   className,
-  onRemoveWidget,
+  dashboardId,
 }) => {
-  const widgets = useUnit(model.$widgets);
+  const [widgets, getWidgets] = useUnit([
+    model.$widgetsArray,
+    model.getWidgets,
+  ]);
 
   if (!widgets.length) {
     return (
@@ -24,6 +27,8 @@ export const WidgetGrid: FCC<WidgetGridProps> = ({
       </section>
     );
   }
+
+  const handleRemove = () => getWidgets(dashboardId);
 
   return (
     <section className={className}>
@@ -38,7 +43,7 @@ export const WidgetGrid: FCC<WidgetGridProps> = ({
           // лучше обернуть все в div, при прямом прокидывании
           // этих пропсов на сам виджет возникают неразрешимые проблемы
           <div
-            key={widget.id}
+            key={widget.raw.id}
             data-grid={{
               x: (index % 2) * 6,
               y: Math.floor(index / 2) * 6,
@@ -49,7 +54,7 @@ export const WidgetGrid: FCC<WidgetGridProps> = ({
             <WidgetInDashboard
               className="h-full"
               widget={widget}
-              onRemove={onRemoveWidget}
+              onRemove={handleRemove}
             />
           </div>
         ))}

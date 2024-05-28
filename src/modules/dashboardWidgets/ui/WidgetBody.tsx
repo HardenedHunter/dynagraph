@@ -16,12 +16,12 @@ type WidgetBodyProps = {
 };
 
 export const WidgetBody = React.memo<WidgetBodyProps>(({ widget }) => {
-  const { datasourceId, serialized } = widget;
+  const { raw, serialized } = widget;
 
-  const datasource = useDatasource(datasourceId);
+  const datasource = useDatasource(raw.datasourceId);
 
   const renderSerialized =
-    !datasourceId || (datasource && datasource.status === "LOADED");
+    !raw.datasourceId || (datasource && datasource.status === "LOADED");
 
   const renderLoading =
     datasource &&

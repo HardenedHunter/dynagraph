@@ -9,7 +9,7 @@ import { FC } from "react";
 import { Modals } from "~/app/ui";
 import { api } from "~/shared/api";
 import { CustomNextPage, icons } from "~/shared/misc";
-import { MainLayout } from "~/shared/ui";
+import { MainLayout } from "~/app/ui";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";

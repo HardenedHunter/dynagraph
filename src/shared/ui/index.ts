@@ -1,5 +1,3 @@
-export { MainLayout } from "./MainLayout";
-export { Header } from "./Header";
 export {
   Button,
   type ButtonVariant,

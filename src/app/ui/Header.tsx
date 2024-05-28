@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import clsx from "clsx";
 
-// TODO это должно быть в shared?
 import { dashboardModel } from "~/pages/dashboard";
 
 type NavLinkProps = PropsWithChildren<{

@@ -34,7 +34,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       title: "Убрать этот виджет с панели?",
       description: "Вы уверены, что хотите убрать этот виджет?",
       onConfirm: async () => {
-        await mutation.mutateAsync(widget.id);
+        await mutation.mutateAsync(widget.raw.id);
       },
       confirmProps: { variant: "error" },
     });
@@ -60,7 +60,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       ref={null}
     >
       <p className="absolute left-4 top-2 text-xs font-bold">
-        {widget.displayedName}
+        {widget.raw.displayedName}
       </p>
       <WidgetBody widget={widget} />
       <Menu className="absolute right-0 top-0" options={menuOptions}>
