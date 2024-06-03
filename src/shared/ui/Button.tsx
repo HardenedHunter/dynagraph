@@ -136,6 +136,7 @@ export const Button: ButtonComponent = forwardRef<
       variant = "primary",
       fillVariant = "full",
       type = "button",
+      disabled = false,
       ...props
     },
     ref,
@@ -145,9 +146,10 @@ export const Button: ButtonComponent = forwardRef<
         {...props}
         type={type}
         ref={ref}
+        disabled={disabled}
         className={clsx(
           block && "w-full",
-          button({ variant, fillVariant, size, disabled: props.disabled }),
+          button({ variant, fillVariant, size, disabled }),
           className,
         )}
       />

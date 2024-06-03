@@ -100,7 +100,16 @@ export const WidgetEditor: FC<WidgetEditorProps> = ({
             />
             <div>
               <p>Предпросмотр</p>
-              <Panel className="mt-1 aspect-[21/9]">
+              <Panel className="mt-1 aspect-[21/9] bg-violet-200">
+                {!serialized && (
+                  <div className="flex h-full w-full items-center justify-center text-center">
+                    <p>
+                      Добавьте код и нажмите &quot;Выполнить&quot;,
+                      <br />
+                      чтобы активировать предпросмотр
+                    </p>
+                  </div>
+                )}
                 {serialized && <Widget serialized={serialized} />}
               </Panel>
             </div>
