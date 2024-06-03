@@ -8,7 +8,7 @@ import {
   transformPrometheusResponse,
 } from "~/shared/ui";
 import { useDatasource } from "~/features/dashboardDatasources";
-import { WidgetLoadingError } from "~/entities/widgetLoadingError";
+import { WidgetLoadingError } from "~/entities/widget";
 import { DashboardWidget } from "../model";
 
 type WidgetBodyProps = {

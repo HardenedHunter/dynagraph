@@ -1,1 +1,1 @@
-export { DashboardCover } from "./dashboardCover";
+export { DashboardCover } from "./DashboardCover";
