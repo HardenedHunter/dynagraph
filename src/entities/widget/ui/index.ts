@@ -1,1 +1,1 @@
-export { WidgetLoadingError } from "./WidgetLoadingError";
+export { Widget } from "./Widget";

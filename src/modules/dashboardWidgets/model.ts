@@ -1,23 +1,13 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
-import { type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import isEqual from "lodash/isEqual";
 
 import { apiClient, RouterOutputs } from "~/shared/api";
+import { SerializedWidget } from "~/entities/widget";
 
 type RawWidget =
   RouterOutputs["dashboardWidget"]["getWidgetsByDashboardId"][number];
-
-export type SerializedWidget =
-  | {
-      mdxSource: MDXRemoteSerializeResult;
-      error: undefined;
-    }
-  | {
-      mdxSource: undefined;
-      error: string;
-    };
 
 export type DashboardWidget = {
   raw: RawWidget;

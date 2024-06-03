@@ -20,7 +20,7 @@ export const Dashboards: FC = () => {
         <Panel className="flex flex-col justify-between gap-8">
           <p>
             Начните с добавления новой панели индикаторов или выберите одну
-            из существующих в панели слева
+            из существующих в списке слева
           </p>
           <Button onClick={handleCreate}>Добавить</Button>
         </Panel>

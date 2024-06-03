@@ -3,7 +3,7 @@ import { useUnit } from "effector-react";
 
 import { api } from "~/shared/api";
 import { confirmationModal, Icon, Menu, Panel, PanelProps } from "~/shared/ui";
-import { WidgetBody } from "./WidgetBody";
+import { ConnectedWidget } from "./ConnectedWidget";
 import { DashboardWidget, model } from "../model";
 
 type WidgetInDashboardProps = PanelProps & {
@@ -42,6 +42,13 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
 
   const menuOptions = [
     {
+      name: "Редактировать",
+      icon: "edit",
+      onClick: () => {
+        //
+      },
+    } as const,
+    {
       name: "Развернуть",
       icon: "expand-arrows-alt",
       onClick: handleExpand,
@@ -62,7 +69,7 @@ export const WidgetInDashboard: FCC<WidgetInDashboardProps> = ({
       <p className="absolute left-4 top-2 text-xs font-bold">
         {widget.raw.displayedName}
       </p>
-      <WidgetBody widget={widget} />
+      <ConnectedWidget widget={widget} />
       <Menu className="absolute right-0 top-0" options={menuOptions}>
         <div className="pr-2 pt-1">
           <Icon icon="ellipsis-vertical" />

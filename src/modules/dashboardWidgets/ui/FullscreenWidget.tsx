@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Panel, Button } from "~/shared/ui";
-import { WidgetBody } from "./WidgetBody";
+import { ConnectedWidget } from "./ConnectedWidget";
 import { DashboardWidget } from "../model";
 
 type FullscreenWidgetProps = {
@@ -22,7 +22,7 @@ export const FullscreenWidget: FC<FullscreenWidgetProps> = ({
         <div className="absolute right-1 top-1">
           <Button.Icon tabIndex={-1} icon="close" onClick={onClose} />
         </div>
-        <WidgetBody widget={widget} />
+        <ConnectedWidget widget={widget} />
       </Panel>
     </div>
   );
