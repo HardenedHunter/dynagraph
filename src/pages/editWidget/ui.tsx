@@ -1,22 +1,26 @@
 import { useRouter } from "next/router";
 
-import { api } from "~/shared/api";
+import { api, RouterOutputs } from "~/shared/api";
 import { CustomNextPage, useRouterLoading } from "~/shared/misc";
 import { WidgetEditor, type WidgetEditorData } from "~/modules/widgetEditor";
 
-export const CreateWidget: CustomNextPage = () => {
+export type EditWidgetProps = {
+  widget: RouterOutputs["widget"]["getWidgetById"];
+};
+
+export const EditWidget: CustomNextPage<EditWidgetProps> = ({ widget }) => {
   const router = useRouter();
 
   const isRouterLoading = useRouterLoading();
 
-  const mutation = api.widget.createWidget.useMutation({
+  const mutation = api.widget.editWidget.useMutation({
     onSuccess: () => {
-      router.push("/library");
+      // TODO
     },
   });
 
   const handleSubmit = (data: WidgetEditorData) => {
-    mutation.mutate(data);
+    mutation.mutate({ id: widget.id, ...data });
   };
 
   const handleExit = () => {
@@ -27,6 +31,7 @@ export const CreateWidget: CustomNextPage = () => {
 
   return (
     <WidgetEditor
+      init={widget}
       onExit={handleExit}
       onSubmit={handleSubmit}
       isLoading={isLoading}
@@ -34,4 +39,4 @@ export const CreateWidget: CustomNextPage = () => {
   );
 };
 
-CreateWidget.layoutClassName = "";
+EditWidget.layoutClassName = "";

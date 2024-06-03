@@ -41,7 +41,7 @@ export const WidgetInLibrary: FC<WidgetInLibraryProps> = ({
     {
       name: "Редактировать",
       icon: "edit",
-      onClick: () => router.push(`/library/edit?widget=${id}`),
+      onClick: () => router.push(`/library/${id}/edit`),
     } as const,
     {
       name: "Убрать",

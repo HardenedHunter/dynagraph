@@ -1,4 +1,4 @@
-export { createWidgetSchema, type CreateWidgetContract } from "./createWidget";
+export * from "./widget";
 export {
   createDashboardSchema,
   type CreateDashboardContract,
@@ -11,3 +11,4 @@ export {
   createDashboardDatasourceSchema,
   type CreateDashboardDatasourceContract,
 } from "./createDashboardDatasource";
+export { commonSchemas } from "./shared";

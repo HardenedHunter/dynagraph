@@ -1,7 +1,9 @@
 import { Prisma } from "@prisma/client";
-import { z } from "zod";
 
-import { createDashboardDatasourceSchema } from "~/server/contracts";
+import {
+  commonSchemas,
+  createDashboardDatasourceSchema,
+} from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultDashboardDatasourceSelect =
@@ -14,7 +16,7 @@ const defaultDashboardDatasourceSelect =
 
 export const dashboardDatasourceRouter = createTRPCRouter({
   getDatasourcesByDashboardId: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .query(({ ctx, input }) => {
       return ctx.db.dashboardDatasource.findMany({
         select: defaultDashboardDatasourceSelect,
@@ -29,7 +31,7 @@ export const dashboardDatasourceRouter = createTRPCRouter({
       });
     }),
   removeDatasourceFromDashboard: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .mutation(({ ctx, input }) => {
       return ctx.db.dashboardDatasource.delete({
         where: { id: input },

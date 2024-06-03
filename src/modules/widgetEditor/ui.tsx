@@ -1,27 +1,41 @@
 import { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import clsx from "clsx";
 
 import { Button, CodeEditor, Icon, Input, Panel } from "~/shared/ui";
-import { CreateWidgetContract, createWidgetSchema } from "~/server/contracts";
 import {
   SerializedWidget,
   serializeRawWidget,
   Widget,
 } from "~/entities/widget";
+import { widgetNameSchema, widgetSourceSchema } from "~/server/contracts";
 
-const defaultValues: CreateWidgetContract = {
+export type WidgetEditorData = {
+  name: string;
+  source: string;
+};
+
+const defaultValues: WidgetEditorData = {
   name: "",
   source: "",
 };
 
+const schema = z.object({
+  name: widgetNameSchema(),
+  source: widgetSourceSchema(),
+});
+
 type WidgetEditorProps = {
+  init?: WidgetEditorData;
   isLoading?: boolean;
-  onSubmit: (data: CreateWidgetContract) => void | Promise<void>;
+  onSubmit: (data: WidgetEditorData) => void | Promise<void>;
   onExit: () => void;
 };
 
 export const WidgetEditor: FC<WidgetEditorProps> = ({
+  init = defaultValues,
   isLoading,
   onSubmit,
   onExit,
@@ -34,9 +48,9 @@ export const WidgetEditor: FC<WidgetEditorProps> = ({
     register,
     handleSubmit,
     formState: { errors, isDirty },
-  } = useForm<CreateWidgetContract>({
-    defaultValues,
-    resolver: zodResolver(createWidgetSchema),
+  } = useForm<WidgetEditorData>({
+    defaultValues: init,
+    resolver: zodResolver(schema),
   });
 
   const handleExecute = async () => {
@@ -100,7 +114,12 @@ export const WidgetEditor: FC<WidgetEditorProps> = ({
             />
             <div>
               <p>Предпросмотр</p>
-              <Panel className="mt-1 aspect-[21/9] bg-violet-200">
+              <Panel
+                className={clsx(
+                  "mt-1 aspect-[21/9]",
+                  !serialized && "bg-violet-200",
+                )}
+              >
                 {!serialized && (
                   <div className="flex h-full w-full items-center justify-center text-center">
                     <p>

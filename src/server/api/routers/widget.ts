@@ -1,7 +1,10 @@
 import { Prisma } from "@prisma/client";
-import { z } from "zod";
 
-import { createWidgetSchema } from "~/server/contracts";
+import {
+  commonSchemas,
+  createWidgetSchema,
+  editWidgetSchema,
+} from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultWidgetSelect = Prisma.validator<Prisma.WidgetSelect>()({
@@ -16,6 +19,14 @@ export const widgetRouter = createTRPCRouter({
       select: defaultWidgetSelect,
     });
   }),
+  getWidgetById: publicProcedure
+    .input(commonSchemas.id())
+    .query(({ ctx, input }) => {
+      return ctx.db.widget.findFirstOrThrow({
+        select: defaultWidgetSelect,
+        where: { id: input },
+      });
+    }),
   createWidget: publicProcedure
     .input(createWidgetSchema)
     .mutation(({ ctx, input }) => {
@@ -23,7 +34,19 @@ export const widgetRouter = createTRPCRouter({
         data: input,
       });
     }),
-  deleteWidget: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.db.widget.delete({ where: { id: input } });
-  }),
+  editWidget: publicProcedure
+    .input(editWidgetSchema)
+    .mutation(({ ctx, input }) => {
+      const { id, name, source } = input;
+
+      return ctx.db.widget.update({
+        where: { id },
+        data: { name, source },
+      });
+    }),
+  deleteWidget: publicProcedure
+    .input(commonSchemas.id())
+    .mutation(({ ctx, input }) => {
+      return ctx.db.widget.delete({ where: { id: input } });
+    }),
 });

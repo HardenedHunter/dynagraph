@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
-import { z } from "zod";
 
-import { createDashboardSchema } from "~/server/contracts";
+import { commonSchemas, createDashboardSchema } from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultDashboardSelect = Prisma.validator<Prisma.DashboardSelect>()({
@@ -18,11 +17,11 @@ export const dashboardRouter = createTRPCRouter({
     });
   }),
   getDashboardById: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .query(({ ctx, input }) => {
       return ctx.db.dashboard.findFirstOrThrow({
-        select: defaultDashboardSelect,
         where: { id: input },
+        select: defaultDashboardSelect,
       });
     }),
   createDashboard: publicProcedure
@@ -33,7 +32,7 @@ export const dashboardRouter = createTRPCRouter({
       });
     }),
   deleteDashboard: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .mutation(({ ctx, input }) => {
       return ctx.db.dashboard.delete({ where: { id: input } });
     }),

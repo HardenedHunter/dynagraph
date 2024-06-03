@@ -1,1 +1,1 @@
-export { WidgetEditor } from "./ui";
+export { WidgetEditor, type WidgetEditorData } from "./ui";

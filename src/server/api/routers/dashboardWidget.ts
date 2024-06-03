@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
-import { z } from "zod";
 
-import { createDashboardWidgetSchema } from "~/server/contracts";
+import { commonSchemas, createDashboardWidgetSchema } from "~/server/contracts";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const defaultDashboardWidgetSelect =
@@ -15,7 +14,7 @@ const defaultDashboardWidgetSelect =
 
 export const dashboardWidgetRouter = createTRPCRouter({
   getWidgetsByDashboardId: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .query(({ ctx, input }) => {
       return ctx.db.dashboardWidget.findMany({
         select: defaultDashboardWidgetSelect,
@@ -30,7 +29,7 @@ export const dashboardWidgetRouter = createTRPCRouter({
       });
     }),
   removeWidgetFromDashboard: publicProcedure
-    .input(z.string().min(1))
+    .input(commonSchemas.id())
     .mutation(({ ctx, input }) => {
       return ctx.db.dashboardWidget.delete({
         where: { id: input },
