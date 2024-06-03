@@ -15,4 +15,5 @@ export {
   faTrash,
   faExpandArrowsAlt,
   faEdit,
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";

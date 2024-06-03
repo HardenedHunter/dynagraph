@@ -13,7 +13,7 @@ export const WidgetLoadingErrorModal: FC<WidgetLoadingErrorModalProps> = ({
   error,
 }) => {
   return (
-    <ModalWindow title="Ошибки загрузки виджета">
+    <ModalWindow title="Ошибка выполнения виджета">
       <div className="max-h-80 w-full overflow-scroll pb-3">
         <pre>
           <p className="text-sm text-red-500">{error}</p>

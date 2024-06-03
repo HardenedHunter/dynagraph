@@ -13,37 +13,53 @@ export type ButtonFillVariant = "border" | "full";
 export type ButtonSize = "md" | "lg";
 
 const button = cva(
-  "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 text-neutral-50 border-[1px]",
+  "whitespace-nowrap outline-none focus:ring-2 focus:ring-offset-2 border-[1px]",
   {
     variants: {
       variant: {
         primary: "focus:ring-violet-500 focus:ring-offset-neutral-50",
         secondary:
           "border-neutral-400 bg-neutral-50 hover:bg-neutral-200 text-neutral-800 focus:ring-neutral-800 focus:ring-offset-neutral-50",
-        warning:
-          "border-transparent bg-amber-400 hover:bg-amber-300 text-neutral-800",
+        warning: "focus:ring-amber-500 focus:ring-offset-neutral-50",
         error: "focus:ring-red-500 focus:ring-offset-neutral-50",
       },
       fillVariant: {
-        border: "",
-        full: "",
+        border: "bg-neutral-50",
+        full: "text-neutral-50",
       },
       size: {
         md: "text-xs px-8 py-2 rounded font-semibold",
         lg: "text-sm px-8 py-3 rounded font-semibold",
+      },
+      disabled: {
+        true: "cursor-not-allowed",
+        false: "",
       },
     },
     compoundVariants: [
       {
         variant: "primary",
         fillVariant: "full",
+        disabled: false,
         class: "bg-violet-500 hover:bg-violet-500",
       },
       {
         variant: "primary",
+        fillVariant: "full",
+        disabled: true,
+        class: "bg-violet-300 hover:bg-violet-300",
+      },
+      {
+        variant: "primary",
         fillVariant: "border",
-        class:
-          "border-violet-500 bg-neutral-50 hover:bg-violet-100 text-violet-800",
+        disabled: false,
+        class: "border-violet-500 hover:bg-violet-100 text-violet-800",
+      },
+      {
+        variant: "primary",
+        fillVariant: "border",
+        disabled: true,
+        class: "border-violet-300 hover:border-violet-300 text-violet-400",
       },
       {
         variant: "error",
@@ -53,7 +69,38 @@ const button = cva(
       {
         variant: "error",
         fillVariant: "border",
-        class: "border-red-500 bg-neutral-50 hover:bg-red-100 text-red-800",
+        disabled: false,
+        class: "border-red-500 hover:bg-red-100 text-red-800",
+      },
+      {
+        variant: "error",
+        fillVariant: "border",
+        disabled: true,
+        class: "border-red-300 hover:border-red-300 text-red-300",
+      },
+      {
+        variant: "warning",
+        fillVariant: "full",
+        disabled: false,
+        class: "bg-amber-500 hover:bg-amber-600 text-neutral-50",
+      },
+      {
+        variant: "warning",
+        fillVariant: "full",
+        disabled: true,
+        class: "bg-amber-300 hover:bg-amber-300",
+      },
+      {
+        variant: "warning",
+        fillVariant: "border",
+        disabled: false,
+        class: "border-amber-500 hover:bg-amber-100 text-amber-600",
+      },
+      {
+        variant: "warning",
+        fillVariant: "border",
+        disabled: true,
+        class: "border-amber-300 hover:border-amber-300 text-amber-400",
       },
     ],
   },
@@ -100,7 +147,7 @@ export const Button: ButtonComponent = forwardRef<
         ref={ref}
         className={clsx(
           block && "w-full",
-          button({ variant, fillVariant, size }),
+          button({ variant, fillVariant, size, disabled: props.disabled }),
           className,
         )}
       />

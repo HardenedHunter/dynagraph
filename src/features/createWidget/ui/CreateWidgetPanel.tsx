@@ -1,25 +1,15 @@
 import { FC } from "react";
-import { Widget } from "@prisma/client";
+import Link from "next/link";
 
 import { Icon, Panel } from "~/shared/ui";
-import { createWidgetModal } from "./CreateWidgetModal";
 
-type CreateWidgetPanelProps = {
-  onCreate?: (widget: Widget) => void;
-};
-
-export const CreateWidgetPanel: FC<CreateWidgetPanelProps> = ({ onCreate }) => {
-  const handleClick = () => {
-    createWidgetModal.open({ onCreate });
-  };
-
+export const CreateWidgetPanel: FC = () => {
   return (
-    <Panel
-      className="flex cursor-pointer flex-col items-center justify-center gap-2 hover:bg-neutral-100"
-      onClick={handleClick}
-    >
-      <Icon icon="plus" />
-      <p>Создать виджет</p>
-    </Panel>
+    <Link href="/library/create">
+      <Panel className="flex h-full cursor-pointer flex-col items-center justify-center gap-2 hover:bg-neutral-100">
+        <Icon icon="plus" />
+        <p>Создать виджет</p>
+      </Panel>
+    </Link>
   );
 };

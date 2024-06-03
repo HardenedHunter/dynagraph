@@ -1,10 +1,9 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
-import { serialize } from "next-mdx-remote/serialize";
 import isEqual from "lodash/isEqual";
 
 import { apiClient, RouterOutputs } from "~/shared/api";
-import { SerializedWidget } from "~/entities/widget";
+import { SerializedWidget, serializeRawWidget } from "~/entities/widget";
 
 type RawWidget =
   RouterOutputs["dashboardWidget"]["getWidgetsByDashboardId"][number];
@@ -28,9 +27,11 @@ const getWidgetsFx = createEffect(async (dashboardId: string) => {
 
   return await Promise.all(
     dashboardWidgets.map(async (dashboardWidget) => {
+      const seriaized = await serializeRawWidget(dashboardWidget.widget.source);
+
       return {
         raw: dashboardWidget,
-        serialized: await serializeRawWidget(dashboardWidget.widget),
+        serialized: { ...seriaized, id: dashboardWidget.widget.id },
       };
     }),
   );
@@ -58,22 +59,6 @@ sample({
   },
   target: $widgets,
 });
-
-const serializeRawWidget = async (raw: { id: string; source: string }) => {
-  try {
-    return {
-      id: raw.id,
-      mdxSource: await serialize(raw.source, {
-        mdxOptions: { development: process.env.NODE_ENV === "development" },
-      }),
-    };
-  } catch (e) {
-    return {
-      id: raw.id,
-      error: (e as Error).message,
-    };
-  }
-};
 
 const $fullscreenWidget = createStore<DashboardWidget | null>(null);
 
