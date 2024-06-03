@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 
 import { CreateDashboardButton } from "~/features/createDashboard";
-import { DashboardCover } from "~/entities/dashboardCover";
+import { DashboardCover } from "~/entities/dashboard";
 import { model } from "./model";
 
 export const DashboardsDrawer: FC = () => {

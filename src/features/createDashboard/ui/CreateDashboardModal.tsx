@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { Button, Input, ModalWindow } from "~/shared/ui";
-import { DashboardCover } from "~/entities/dashboardCover";
+import { DashboardCover } from "~/entities/dashboard";
 import {
   CreateDashboardContract,
   createDashboardSchema,
