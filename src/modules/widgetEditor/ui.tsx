@@ -47,7 +47,7 @@ export const WidgetEditor: FC<WidgetEditorProps> = ({
   const isSaveDisabled = !isDirty || isLoading;
 
   const exitText = isDirty ? "Отменить и выйти" : "Выйти";
-  const exitVariant = isDirty ? "error" : "warning";
+  const exitVariant = isDirty ? "error" : "secondary";
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>

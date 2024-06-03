@@ -3,7 +3,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubLight } from "@uiw/codemirror-theme-github";
 
-import "./CodeEditor.css";
+import "./styles.css";
 
 type CodeEditorProps = {
   height?: number;

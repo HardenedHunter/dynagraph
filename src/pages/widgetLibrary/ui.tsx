@@ -1,23 +1,24 @@
-import { useUnit } from "effector-react";
 import { FC } from "react";
+import Link from "next/link";
+import { useUnit } from "effector-react";
 
 import { Icon, Panel } from "~/shared/ui";
-import { CreateWidgetPanel } from "~/features/createWidget";
+import { WidgetInLibrary } from "~/modules/widgetInLibrary";
 import { model } from "./model";
 
 export const WidgetLibrary: FC = () => {
-  const widgets = useUnit(model.$widgets);
+  const [widgets, getWidgets] = useUnit([model.$widgets, model.getWidgets]);
 
   return (
     <div className="mx-auto grid max-w-[90rem] gap-6 md:grid-cols-4">
-      <CreateWidgetPanel />
-      {widgets.map((w) => (
-        <Panel key={w.id}>
-          <p className="text-sm font-bold">{w.name}</p>
-          <div className="flex h-24 items-center justify-center">
-            <Icon icon="chart-column" size="3x" />
-          </div>
+      <Link href="/library/create">
+        <Panel className="flex h-full cursor-pointer flex-col items-center justify-center gap-2 hover:bg-neutral-100">
+          <Icon icon="plus" />
+          <p>Создать виджет</p>
         </Panel>
+      </Link>
+      {widgets.map((widget) => (
+        <WidgetInLibrary key={widget.id} {...widget} onDelete={getWidgets} />
       ))}
     </div>
   );
