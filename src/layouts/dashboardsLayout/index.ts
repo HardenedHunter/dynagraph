@@ -1,1 +1,0 @@
-export { DashboardsLayout } from "./ui";

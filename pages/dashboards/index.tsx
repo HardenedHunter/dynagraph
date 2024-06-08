@@ -1,8 +1,8 @@
 import { allSettled, fork, serialize } from "effector";
 
 import { CustomNextPage } from "~/shared/misc";
-import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
-import { DashboardsLayout } from "~/layouts/dashboardsLayout";
+import { dashboardsDrawerModel } from "~/modules/dashboards-drawer";
+import { DashboardsLayout } from "~/layouts/dashboards-layout";
 import { Dashboards } from "~/pages/dashboards";
 
 const _Dashboards: CustomNextPage = Dashboards;

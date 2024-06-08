@@ -1,4 +1,4 @@
-import * as iconImports from "./iconImports";
+import * as iconImports from "./icon-imports";
 
 export const icons = iconImports;
 

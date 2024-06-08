@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 
 import { apiClient } from "~/shared/api";
-import { EditWidget, EditWidgetProps } from "~/pages/editWidget";
+import { EditWidget, EditWidgetProps } from "~/pages/edit-widget";
 
 export const getServerSideProps: GetServerSideProps<
   EditWidgetProps,

@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useGate, useUnit } from "effector-react";
 
-import { DashboardToolbox } from "~/modules/dashboardToolbox";
+import { DashboardToolbox } from "~/modules/dashboard-toolbox";
 import {
   DashboardWidgets,
   dashboardWidgetsModel,
-} from "~/modules/dashboardWidgets";
-import { dashboardDatasourcesModel } from "~/features/dashboardDatasources";
+} from "~/modules/dashboard-widgets";
+import { dashboardDatasourcesModel } from "~/features/dashboard-datasources";
 import { model } from "./model";
 
 export const Dashboard: FC = () => {

@@ -2,11 +2,11 @@ import { allSettled, fork, serialize } from "effector";
 import { GetServerSideProps } from "next";
 
 import { CustomNextPage } from "~/shared/misc";
-import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
-import { dashboardWidgetsModel } from "~/modules/dashboardWidgets";
-import { DashboardsLayout } from "~/layouts/dashboardsLayout";
+import { dashboardsDrawerModel } from "~/modules/dashboards-drawer";
+import { dashboardWidgetsModel } from "~/modules/dashboard-widgets";
+import { DashboardsLayout } from "~/layouts/dashboards-layout";
 import { Dashboard, dashboardModel } from "~/pages/dashboard";
-import { dashboardDatasourcesModel } from "~/features/dashboardDatasources";
+import { dashboardDatasourcesModel } from "~/features/dashboard-datasources";
 
 const _Dashboard: CustomNextPage = Dashboard;
 

@@ -1,6 +1,6 @@
 import { allSettled, fork, serialize } from "effector";
 
-import { WidgetLibrary, widgetLibraryModel } from "~/pages/widgetLibrary";
+import { WidgetLibrary, widgetLibraryModel } from "~/pages/widget-library";
 
 export const getServerSideProps = async () => {
   const scope = fork();

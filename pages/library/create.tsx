@@ -1,3 +1,3 @@
-import { CreateWidget } from "~/pages/createWidget";
+import { CreateWidget } from "~/pages/create-widget";
 
 export default CreateWidget;

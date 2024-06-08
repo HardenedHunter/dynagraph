@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useUnit } from "effector-react";
 
 import { Button, Panel } from "~/shared/ui";
-import { createDashboardModal } from "~/features/createDashboard";
-import { dashboardsDrawerModel } from "~/modules/dashboardsDrawer";
+import { createDashboardModal } from "~/features/create-dashboard";
+import { dashboardsDrawerModel } from "~/modules/dashboards-drawer";
 
 export const Dashboards: FC = () => {
   const getDashboards = useUnit(dashboardsDrawerModel.getDashboards);

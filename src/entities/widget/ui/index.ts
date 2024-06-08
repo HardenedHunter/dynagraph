@@ -1,2 +1,2 @@
-export { Widget } from "./Widget";
-export { WidgetPanel } from "./WidgetPanel";
+export { Widget } from "./widget";
+export { WidgetPanel } from "./widget-panel";

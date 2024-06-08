@@ -1,3 +1,3 @@
-export { Header } from "./Header";
-export { MainLayout } from "./MainLayout";
-export { Modals } from "./Modals";
+export { Header } from "./header";
+export { MainLayout } from "./main-layout";
+export { Modals } from "./modals";

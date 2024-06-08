@@ -4,16 +4,16 @@ export {
   type ButtonFillVariant,
   type ButtonSize,
   type ButtonProps,
-} from "./Button";
-export { BlockLoader } from "./BlockLoader";
-export { Icon, type IconProps } from "./Icon";
-export { Panel, type PanelProps } from "./Panel";
-export { ModalWindow } from "./ModalWindow";
-export { Input } from "./Input";
-export { TextArea } from "./TextArea";
-export { Select } from "./Select";
-export { Menu } from "./Menu";
-export { CodeEditor } from "./CodeEditor";
-export { confirmationModal } from "./ConfirmationModal";
+} from "./button";
+export { BlockLoader } from "./block-loader";
+export { Icon, type IconProps } from "./icon";
+export { Panel, type PanelProps } from "./panel";
+export { ModalWindow } from "./modal-window";
+export { Input } from "./input";
+export { TextArea } from "./textarea";
+export { Select } from "./select";
+export { Menu } from "./menu";
+export { CodeEditor } from "./code-editor";
+export { confirmationModal } from "./confirmation-modal";
 
-export * from "./mdxComponents";
+export * from "./mdx-components";

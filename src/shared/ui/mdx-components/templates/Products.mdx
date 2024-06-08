@@ -1,0 +1,28 @@
+<div style={{ width: "100%", height: "100%", overflowX: "scroll" }}>
+  <ul style={{ display: "flex", gap: "8px", flexDirection: "column" }}>
+    {scope.data.products.map((p) => (
+      <li
+        key={p.id}
+        style={{
+          borderBottom: "1px solid rgb(212 212 212)",
+          paddingTop: "6px",
+          paddingBottom: "6px",
+          display: "grid",
+          gridTemplateColumns: "1fr 50px",
+          gap: "8px",
+        }}
+      >
+        <p
+          style={{
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {p.title}
+        </p>
+        <p>${p.price}</p>
+      </li>
+    ))}
+  </ul>
+</div>
