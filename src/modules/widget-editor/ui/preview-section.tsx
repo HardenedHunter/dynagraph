@@ -1,12 +1,9 @@
 import { FC } from "react";
-import { useUnit } from "effector-react";
 import { useFormContext } from "react-hook-form";
-import clsx from "clsx";
 
-import { Button, Input, Panel } from "~/shared/ui";
-import { Widget } from "~/entities/widget";
+import { Button, Input } from "~/shared/ui";
 import { WidgetEditorData } from "../types";
-import { editorModel } from "../model";
+import { WidgetPreview } from "./widget-preview";
 
 type PreviewSectionProps = {
   isLoading?: boolean;
@@ -17,8 +14,6 @@ export const PreviewSection: FC<PreviewSectionProps> = ({
   isLoading,
   onExit,
 }) => {
-  const serialized = useUnit(editorModel.$serialized);
-
   const {
     register,
     formState: { isDirty, errors },
@@ -54,23 +49,7 @@ export const PreviewSection: FC<PreviewSectionProps> = ({
         />
         <div>
           <p>Предпросмотр</p>
-          <Panel
-            className={clsx(
-              "mt-1 aspect-[21/9]",
-              !serialized && "bg-violet-200",
-            )}
-          >
-            {!serialized && (
-              <div className="flex h-full w-full items-center justify-center text-center">
-                <p>
-                  Добавьте код и нажмите &quot;Выполнить&quot;,
-                  <br />
-                  чтобы активировать предпросмотр
-                </p>
-              </div>
-            )}
-            {serialized && <Widget serialized={serialized} />}
-          </Panel>
+          <WidgetPreview className="mt-1" />
         </div>
       </div>
     </section>
