@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote";
 import {
   BlockLoader,
   LineChart,
+  NoSSR,
   transformPrometheusResponse,
 } from "~/shared/ui";
 import { WidgetLoadingError } from "./widget-loading-error";
@@ -23,27 +24,29 @@ export const Widget = React.memo<WidgetProps>(
     }
 
     return (
-      <ErrorBoundary
-        fallbackRender={({ error }) => (
-          <WidgetLoadingError error={(error as Error).message} />
-        )}
-      >
-        {!isLoading && (
-          <Suspense fallback={<BlockLoader />}>
-            <MDXRemote
-              {...serialized.mdxSource}
-              components={{ LineChart }}
-              scope={{
-                scope: {
-                  data,
-                  transformPrometheusResponse,
-                },
-              }}
-            />
-          </Suspense>
-        )}
-        {isLoading && <BlockLoader />}
-      </ErrorBoundary>
+      <NoSSR>
+        <ErrorBoundary
+          fallbackRender={({ error }) => (
+            <WidgetLoadingError error={(error as Error).message} />
+          )}
+        >
+          {!isLoading && (
+            <Suspense fallback={<BlockLoader />}>
+              <MDXRemote
+                {...serialized.mdxSource}
+                components={{ LineChart }}
+                scope={{
+                  scope: {
+                    data,
+                    transformPrometheusResponse,
+                  },
+                }}
+              />
+            </Suspense>
+          )}
+          {isLoading && <BlockLoader />}
+        </ErrorBoundary>
+      </NoSSR>
     );
   },
 );
