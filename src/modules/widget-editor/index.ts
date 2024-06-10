@@ -1,1 +1,2 @@
-export { WidgetEditor, type WidgetEditorData } from "./ui";
+export { WidgetEditor } from "./ui";
+export { type WidgetEditorData } from "./types";
