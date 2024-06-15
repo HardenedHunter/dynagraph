@@ -55,9 +55,6 @@ export const Header: FCC = ({ className }) => {
             <li>
               <NavLink href="/library">Библиотека виджетов</NavLink>
             </li>
-            <li>
-              <NavLink href="/users">Пользователи</NavLink>
-            </li>
           </ul>
         </nav>
       </section>

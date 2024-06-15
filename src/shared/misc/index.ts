@@ -3,3 +3,4 @@ export { createModalActions } from "./modals";
 export { validation } from "./validation";
 export { type CustomNextPage } from "./next";
 export { useRouterLoading } from "./navigation";
+export { exportDomElement } from "./export-dom-element";
