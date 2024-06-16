@@ -6,12 +6,13 @@ import {
   Button,
   confirmationModal,
   ModalWindow,
-  Panel,
 } from "~/shared/ui";
 import { api } from "~/shared/api";
 import { createModalActions } from "~/shared/misc";
 import { addDatasourceModal } from "./add-datasource-modal";
-import { Datasource, model } from "../model";
+import { Datasource } from "../lib";
+import { model } from "../model";
+import { DatasourceListItem } from "./datasource-list-item";
 
 const name = "DashboardDatasourcesModal";
 
@@ -22,11 +23,13 @@ type DashboardDatasourcesModalProps = {
 const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
   dashboardId,
 }) => {
-  const [datasources, isLoading, getDatasources] = useUnit([
-    model.$datasourcesArray,
-    model.$pending,
-    model.getDatasources,
-  ]);
+  const [datasources, isLoading, getDatasources, getDataForDatasource] =
+    useUnit([
+      model.$datasourcesArray,
+      model.$pending,
+      model.getDatasources,
+      model.getDataForDatasource,
+    ]);
 
   const mutation =
     api.dashboardDatasource.removeDatasourceFromDashboard.useMutation({
@@ -48,6 +51,10 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
       onCancel: () => dashboardDatasourcesModal.open({ dashboardId }),
       confirmProps: { variant: "error" },
     });
+  };
+
+  const handleRefresh = (entity: Datasource) => {
+    getDataForDatasource(entity.id);
   };
 
   const handleAdd = async () => {
@@ -80,28 +87,13 @@ const DashboardDatasourcesModal: FC<DashboardDatasourcesModalProps> = ({
               Добавить источник данных
             </Button>
             <ul className="mt-6 flex flex-col gap-2">
-              {datasources.map(({ entity }) => (
-                <li key={entity.id}>
-                  <Panel className="grid grid-cols-[150px_1fr_24px] gap-4 !bg-neutral-100">
-                    <p
-                      className="overflow-hidden text-ellipsis whitespace-nowrap"
-                      title={entity.name}
-                    >
-                      {entity.name}
-                    </p>
-                    <p
-                      className="overflow-hidden text-ellipsis whitespace-nowrap underline"
-                      title={entity.url}
-                    >
-                      {entity.url}
-                    </p>
-                    <Button.Icon
-                      icon="trash"
-                      iconProps={{ size: "sm" }}
-                      onClick={() => handleRemove(entity)}
-                      tabIndex={-1}
-                    />
-                  </Panel>
+              {datasources.map((state) => (
+                <li key={state.entity.id}>
+                  <DatasourceListItem
+                    state={state}
+                    onRemove={handleRemove}
+                    onRefresh={handleRefresh}
+                  />
                 </li>
               ))}
             </ul>

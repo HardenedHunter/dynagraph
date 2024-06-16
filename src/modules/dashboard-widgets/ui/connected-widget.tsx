@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 
+import { Widget } from "~/entities/widget";
 import { useDatasource } from "~/features/dashboard-datasources";
 import { DashboardWidget } from "../model";
-import { Widget } from "~/entities/widget";
 
 type ConnectedWidgetProps = {
   widget: DashboardWidget;
@@ -10,22 +10,55 @@ type ConnectedWidgetProps = {
 
 export const ConnectedWidget = React.memo<ConnectedWidgetProps>(
   ({ widget }) => {
-    const { raw, serialized } = widget;
+    const {
+      raw: { datasourceId },
+      serialized,
+    } = widget;
 
-    const datasource = useDatasource(raw.datasourceId);
-
-    const isLoading =
-      datasource !== null &&
-      (datasource.status === "PENDING" || datasource.status === "NOT_STARTED");
+    if (datasourceId === null) {
+      return <WidgetWithoutDatasource serialized={serialized} />;
+    }
 
     return (
-      <Widget
+      <WidgetWithDatasource
         serialized={serialized}
-        data={datasource?.data?.result}
-        isLoading={isLoading}
+        datasourceId={datasourceId}
       />
     );
   },
 );
+
+type WidgetWithDatasourceProps = {
+  serialized: DashboardWidget["serialized"];
+  datasourceId: string;
+};
+
+const WidgetWithDatasource: FC<WidgetWithDatasourceProps> = ({
+  serialized,
+  datasourceId,
+}) => {
+  const datasource = useDatasource(datasourceId);
+
+  const isLoading =
+    datasource.status === "PENDING" || datasource.status === "NOT_STARTED";
+
+  return (
+    <Widget
+      serialized={serialized}
+      data={datasource?.data?.result}
+      isLoading={isLoading}
+    />
+  );
+};
+
+type WidgetWithoutDatasourceProps = {
+  serialized: DashboardWidget["serialized"];
+};
+
+const WidgetWithoutDatasource: FC<WidgetWithoutDatasourceProps> = ({
+  serialized,
+}) => {
+  return <Widget serialized={serialized} />;
+};
 
 ConnectedWidget.displayName = "ConnectedWidget";

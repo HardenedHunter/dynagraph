@@ -17,4 +17,6 @@ export {
   faEdit,
   faPlay,
   faSave,
+  faCircle,
+  faRefresh,
 } from "@fortawesome/free-solid-svg-icons";

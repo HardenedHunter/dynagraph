@@ -3,20 +3,19 @@ import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import { spread } from "patronum";
 
-import { apiClient, RouterOutputs } from "~/shared/api";
+import { apiClient } from "~/shared/api";
+import {
+  Datasource,
+  DatasourceState,
+  DSEligibleForLoad,
+  getLoadingState,
+  getPostLoadingState,
+  isEligibleForLoad,
+  isLoading,
+  DSLoading,
+} from "./lib";
 
-export type Datasource =
-  RouterOutputs["dashboardDatasource"]["getDatasourcesByDashboardId"][number];
-
-type DatasourceStatus = "NOT_STARTED" | "PENDING" | "LOADED" | "FAILED";
-
-export type DatasourceWithData = {
-  entity: Datasource;
-  status: DatasourceStatus;
-  data: { result: unknown } | null;
-};
-
-type DatasourcesStore = Record<string, DatasourceWithData>;
+type DatasourcesStore = Record<string, DatasourceState>;
 
 const $datasources = createStore<DatasourcesStore>({});
 
@@ -34,25 +33,27 @@ const getDataForDatasourceFx = createEffect(async (entity: Datasource) => {
   try {
     const result = await fetch(entity.url).then((res) => res.json());
 
-    return { id: entity.id, data: { result }, status: "LOADED" } as const;
+    return { id: entity.id, data: { result } } as const;
   } catch {
-    return { id: entity.id, data: null, status: "FAILED" } as const;
+    return { id: entity.id, data: null } as const;
   }
 });
 
 sample({
   clock: getDataForDatasource,
   source: $datasources,
-  filter: (state, id) => {
-    const datasource = state[id];
+  filter: (store, id) => {
+    const datasource = store[id];
 
-    return datasource !== undefined && datasource.status === "NOT_STARTED";
+    if (!datasource) throw new Error("[FATAL] Datasource not found");
+
+    return isEligibleForLoad(datasource);
   },
-  fn: (state, id) => {
-    const newState = { ...state };
-    const datasource = newState[id]!;
+  fn: (store, id) => {
+    const newState = { ...store };
+    const datasource = newState[id] as DSEligibleForLoad;
 
-    newState[id] = { ...datasource, status: "PENDING" };
+    newState[id] = getLoadingState(datasource);
 
     return { entity: datasource.entity, newState };
   },
@@ -62,20 +63,18 @@ sample({
 sample({
   clock: getDataForDatasourceFx.doneData,
   source: $datasources,
-  filter: (state, result) => {
-    const datasource = state[result.id];
+  filter: (store, result) => {
+    const datasource = store[result.id];
 
-    return datasource !== undefined && datasource.status === "PENDING";
+    if (!datasource) throw new Error("[FATAL] Datasource not found");
+
+    return isLoading(datasource);
   },
-  fn: (state, result) => {
-    const newState = { ...state };
-    const datasource = newState[result.id]!;
+  fn: (store, result) => {
+    const newState = { ...store };
+    const datasource = newState[result.id] as DSLoading;
 
-    newState[result.id] = {
-      ...datasource,
-      data: result.data,
-      status: result.status,
-    };
+    newState[result.id] = getPostLoadingState(datasource, result.data);
 
     return newState;
   },
